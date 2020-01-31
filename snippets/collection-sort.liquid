@@ -1,0 +1,18 @@
+<div class="sort-select-wrapper fa-caret-down">
+    <select class="sort-by sort-select">
+        <option value="manual">Featured</option>
+        <option value="best-selling">Best Selling</option>
+        <option value="title-ascending">Name: A-Z</option>
+        <option value="title-descending">Name: Z-A</option>
+        <option value="price-ascending">Price: Low to High</option>
+        <option value="price-descending">Price: Hight to Low</option>
+        <option value="created-ascending">Arrival: Oldest to Newest</option>
+        <option value="created-descending">Arrival: Newest to Oldest</option>
+    </select>
+</div>
+<script type="text/javascript">
+jQuery('.sort-by').val('{{ collection.sort_by | default: collection.default_sort_by }}').on('change', function() {
+    Shopify.queryParams.sort_by = jQuery(this).val();
+    location.search = jQuery.param(Shopify.queryParams).replace(/\+/g, '%20');
+});
+</script>

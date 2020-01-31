@@ -1,0 +1,41 @@
+<div class="h2">
+    <div class="h2-cell">
+        <h2 titl="{{ article.title | escape }}">{{ article.title }}</h2>
+        <div class="breadcrumbs">
+            <a href="/" title="Home">Home</a> / 
+            <a href="/blogs/news/" title="Blog">Blog</a> / 
+            <a class="active" href="{{ article.url }}" title="{{ article.title | escape }}">{{ article.title }}</a>
+        </div>
+    </div>
+</div>
+<div id="content" class="container padding-bottom">
+    <div class="blog-post">
+        {% comment %}
+        <div class="photo">
+            <img src="{{ article.image.src | img_url: 'master' }}" alt="{{ article.title | escape }}" />
+        </div>
+        {% endcomment %}
+        <span class="date">{{ article.created_at | date: '%b %d, %Y' }}</span>
+        {{ article.content }}
+        {% if article.tags != blank %}
+            <div class="block first">
+                <span class="key">Tags:</span>
+                <span class="value">
+                    {% for tag in article.tags %}
+                        <span>{{ tag }}</span>{% if forloop.last %}{% else %}, {% endif %}
+                    {% endfor %}
+                </span>
+            </div>
+        {% endif %}
+        <div class="block">
+            <span class="key">Share:</span>
+            <span class="value">
+                <a class="fa-twitter" href="http://twitter.com/intent/tweet?url={{ shop.url }}{{ article.url }}/&text={{ article.title | escape }}" title="Share {{ article.title | escape }} on Twitter" target="_blank"></a>
+                <a class="fa-facebook" href="http://www.facebook.com/sharer/sharer.php?u={{ shop.url }}{{ article.url }}/" title="Share {{ article.title | escape }} on Facebook" target="_blank"></a>
+                <a class="fa-tumblr" href="http://www.tumblr.com/share/link?url={{ shop.url }}{{ article.url }}" title="Share {{ article.title | escape }} on Tumblr" target="_blank"></a>
+                <a class="fa-pinterest" href="http://pinterest.com/pin/create/button/?url={{ shop.url }}{{ article.url }}&media={{ article.image.src | img_url: 'grande' }}&description={{ article.title | escape }}" title="Share {{ article.title | escape }} on Pinterest" target="_blank"></a>
+            </span>
+        </div>
+    </div>
+    {% include 'blog-sidebar' %}
+</div>

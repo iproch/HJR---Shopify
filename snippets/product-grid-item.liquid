@@ -1,0 +1,18 @@
+{% assign on_sale = false %}
+
+{% if product.compare_at_price > product.price %}
+    {% assign on_sale = true %}
+{% endif %}
+
+<li class="{% unless product.available %} sold-out{% endunless %}{% if on_sale %} sale{% endif %} js-size-filter {% for variant in product.variants %}{% if variant.available %}size-{{ variant.title }} {% endif %}{% endfor %}">
+    <a href="{{ product.url }}/" title="{{ product.title | escape }}">
+		<div class="photo{% if product.images[1] != blank %} front-back{% endif %}">
+			<img class="front" src="{{ product | img_url: 'grande' }}" alt="{{ product.featured_image.alt | escape }}" />
+			{% if product.images[1] != blank %}
+				<img class="back" src="{{ product.images[1] | img_url: 'grande' }}" alt="{{ product.images[1].alt | escape }}" />
+			{% endif %}
+		</div>
+		<h3 title="{{ product.title | escape }}">{{ product.title }}</h3>
+		<span class="price">{% if on_sale %}<span class="compare-at strike">{{ product.compare_at_price | money }}</span> {% endif %}{{ product.price | money }}</span>
+    </a>
+</li>

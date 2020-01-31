@@ -1,0 +1,79 @@
+<div class="h2">
+    <div class="h2-cell">
+        <h2 titl="Account">Account</h2>
+        <div class="breadcrumbs">
+            <a href="/" title="Home">Home</a> / 
+            <a class="active" href="/account/" title="Account">Account</a>
+        </div>
+    </div>
+</div>
+<div id="content" class="container padding-bottom">
+	<div class="account-left">
+		{% form 'customer_login' %}
+			<fieldset>
+				<h3 class="p-title" title="Log In">Log In</h3>
+				{{ form.errors | default_errors }}
+				<div class="block">
+				    <label for="customer_email">E-Mail Address</label>
+					<input name="customer[email]" type="email" placeholder="E-Mail Address" />
+				</div>
+				<div class="block">
+				    <label for="customer_password">Password</label>
+				    <input name="customer[password]" type="password" placeholder="Password" />
+				</div>
+				<div class="block">
+					<a class="forgot-password forgot-password-show" href="#forgot-password" title="Lost Password?">Lost Password?</a>
+				</div>
+				<div class="block">
+				    <input type="submit" value="Log In" />
+				</div>
+			</fieldset>
+		{% endform %}
+		{% form 'recover_customer_password' %}
+			<fieldset>
+				<h3 class="p-title" title="Lost Password">Lost Password</h3>
+				{{ form.errors | default_errors }}
+				<div class="block">
+					<label for="customer_email">E-Mail Address</label>
+					<input name="email" type="email" placeholder="E-Mail Address" />
+				</div>
+				<div class="block">
+					<a class="forgot-password forgot-password-hide" href="#log-in" title="Log In">Log In</a>
+				</div>
+				<div class="block">
+					<input type="submit" value="Recover" />
+				</div>
+			</fieldset>
+		{% endform %}
+	</div>
+	<div class="account-right">
+		{% form 'create_customer' %}
+			<fieldset>
+				<h3 class="p-title" title="Sign Up">Don't have an account? Sign up now</h3>
+				{{ form.errors | default_errors }}
+				<div class="float left first-name">
+					<label for="first_name">First Name</label>
+					<input name="customer[first_name]" type="text" size="30" placeholder="First Name" />
+				</div>
+				<div class="float last-name">
+					<label for="last_name">Last Name</label>
+					<input name="customer[last_name]" type="text" size="30" placeholder="Last Name" />
+				</div>
+				<div class="float left">
+					<label for="email">E-Mail Address</label>
+				    <input name="customer[email]" type="email" size="30" placeholder="E-Mail Address" />
+				</div>
+				<div class="float">
+					<label for="password">Password</label>
+					<input name="customer[password]" type="password" size="30" placeholder="Password" />
+				</div>
+				<p>
+		            By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, view and track your orders in your account and more.
+		        </p>
+				<div class="block">
+					<input type="submit" value="Sign Up" />
+				</div>
+			</fieldset>
+		{% endform %}
+	</div>
+</div>

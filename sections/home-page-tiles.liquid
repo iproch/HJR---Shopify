@@ -1,0 +1,154 @@
+
+<script type="text/javascript" src="{{ 'slick.min.js' | asset_url }}"></script>
+<script src="https://kit.fontawesome.com/a6a33397e5.js"></script>
+
+<!-- Redesign -->
+{% for block in section.blocks %}
+<section class="banner-row first-row-mobile" style="margin-left:5%;margin-right:5%;">
+<div class="width45">
+<a href="{{ block.settings.link1 }}" class="img-box" style="background-size: cover;
+background-position: center;
+background-repeat:no-repeat;
+display:block;background-image:url({{ block.settings.image1 | img_url: '400x' }})">
+<div class="redesign-cta reduced-cta"><p class="update-cta-txt">{{ block.settings.cta1 }}</p></div>
+</a>
+</div>
+<div class="width45">
+<a href="{{ block.settings.link2 }}" class="img-box" style="background-size: cover;
+background-position: center;
+background-repeat:no-repeat;
+display:block;background-image:url({{ block.settings.image2 | img_url: '400x' }})">
+<div class="redesign-cta reduced-cta"><p class="update-cta-txt">{{ block.settings.cta2 }}</p></div>
+</a>
+</div>
+</section>
+<div class="clear-both"></div>
+
+<section class="banner-row" style="margin-left:2.5%;margin-right:2.5%;">
+<div class="clear-both"></div>
+<a class="img-box adjusted-mailing" href="{{block.settings.link3}}"style="background-size: contain;
+background-repeat:no-repeat;
+background-position:center;background-image:url({{ block.settings.banner-image | img_url: '1280x' }});"></a>
+</section>
+
+{% endfor %}
+
+<div class="clear-both"></div>
+
+
+
+<script type="text/javascript">
+$(document).on('ready', function() {
+
+$(".regular").slick({
+dots: true,
+infinite: true,
+slidesToShow: 1,
+slidesToScroll: 1
+});
+
+$(".products-grid").slick({
+infinite: true, 
+slidesToShow: 4,
+autoplay: true, 
+autoplaySpeed: 2000,
+slidesToScroll: 1,
+responsive:[
+    {
+    breakpoint: 768,
+    settings: {
+        slidesToShow: 4, 
+        autoplay: true, 
+    }
+    },
+    {
+    breakpoint: 480,
+    settings:{
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true, 
+        autoplaySpeed: 2000
+    }
+
+    }
+
+
+]
+});
+
+});
+</script>
+<!-- End Redesign -->
+
+
+
+{% schema %}
+{
+"name": "Home Page Top Grid",
+"class": "top-grid",
+"max_blocks": 1,
+"settings": [
+],
+"blocks": [
+{
+"type": "image",
+"name": "Images & Wide Banner",
+"settings": [
+{
+"type": "image_picker",
+"id": "image1",
+"label": "Left Image"
+},
+{
+"type": "url",
+"id": "link1",
+"label": "Left Image Link"
+},
+{
+"type": "text",
+"id": "cta1",
+"label": "Call to Action"    
+},	
+{
+"type": "image_picker",
+"id": "image2",
+"label": "Right Image"
+},
+{
+"type": "url",
+"id": "link2",
+"label": "Right Image Link"
+},
+{
+"type": "text",
+"id": "cta2",
+"label": "Call to Action"   
+},
+{
+"type": "image_picker",
+"id": "banner-image",
+"label": "Wide Banner"
+},
+{
+"type": "url",
+"id": "link3",
+"label": "Wide Banner Link"
+}
+]
+}
+
+],
+"presets": [{
+"name": "Top Grid",
+"category": "Home Page Layout",
+"settings": {
+
+},
+"blocks": [
+{
+"type": "image"
+}
+]
+}]
+}
+{% endschema %}

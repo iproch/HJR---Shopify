@@ -1,0 +1,37 @@
+<div class="h2">
+    <div class="h2-cell">
+        <h2 titl="Blog">Blog</h2>
+        <div class="breadcrumbs">
+            <a href="/" title="Home">Home</a> / 
+            <a href="/blogs/news/" title="Blog">Blog</a> / 
+            <a class="active" href="{{ blog.url }}/" title="{{ blog.title | escape }}">{{ blog.title }}</a>
+        </div>
+    </div>
+</div>
+<div id="content" class="container padding-bottom">
+    <div class="blog-list">
+        <ul>
+            {% for article in blogs[blog.handle].articles %}
+                <li>
+                    <div class="photo">
+                        <a href="{{ article.url }}/" title="{{ article.title | escape }}"><img src="{{ article.image.src | img_url: 'grande' }}" alt="{{ article.title | escape }}" /></a>
+                    </div>
+                    <div class="info">
+                        <h3 title="{{ article.title | escape }}"><a href="{{ article.url }}/" title="{{ article.title | escape }}">{{ article.title }}</a></h3>
+                        <span class="date">{{ article.created_at | date: '%b %d, %Y' }}</span>
+                        {{ article.excerpt }}
+                        <a class="read-more" href="{{ article.url }}/" title="{{ article.title | escape }}"><span>Read More</span></a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+        {% comment %}
+        <div class="pagination">
+            <a class="pagination previous" href="#previous" title="Previous"><span>Previous</span></a>
+            <a class="pagination page-1 active" href="#page-1" title="Page 1"><span>1</span></a>
+            <a class="pagination next" href="#next" title="Next"><span>Next</span></a>
+        </div>
+        {% endcomment %}
+    </div>
+    {% include 'blog-sidebar' %}
+</div>

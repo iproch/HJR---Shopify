@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!--SteelHouse Tracking Pixel-->
+<!-- INSTALL ON ALL PAGES OF SITE-->
+<script type="text/javascript">
+	(function(){"use strict";var e=null,b="4.0.0",
+	n="31155",
+	additional="term=value",
+	t,r,i;try{t=top.document.referer!==""?encodeURIComponent(top.document.referrer.substring(0,2048)):""}catch(o){t=document.referrer!==null?document.referrer.toString().substring(0,2048):""}try{r=window&&window.top&&document.location&&window.top.location===document.location?document.location:window&&window.top&&window.top.location&&""!==window.top.location?window.top.location:document.location}catch(u){r=document.location}try{i=parent.location.href!==""?encodeURIComponent(parent.location.href.toString().substring(0,2048)):""}catch(a){try{i=r!==null?encodeURIComponent(r.toString().substring(0,2048)):""}catch(f){i=""}}var l,c=document.createElement("script"),h=null,p=document.getElementsByTagName("script"),d=Number(p.length)-1,v=document.getElementsByTagName("script")[d];if(typeof l==="undefined"){l=Math.floor(Math.random()*1e17)}h="dx.steelhousemedia.com/spx?"+"dxver="+b+"&shaid="+n+"&tdr="+t+"&plh="+i+"&cb="+l+additional;c.type="text/javascript";c.src=("https:"===document.location.protocol?"https://":"http://")+h;v.parentNode.insertBefore(c,v)})()
+</script>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0"/>
+    <script bronto-popup-id="da277a26-edef-459e-8a23-d8f9d9f0b10e" src="https://cdn.bronto.com/popup/delivery.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      $(document).on('ready', function() {
+        $(".lazy").slick({
+          lazyLoad: 'ondemand', // ondemand progressive anticipated
+          infinite: true
+        });
+      });
+    </script>
+    <script>
+
+      var _affirm_config = { 
+        public_api_key: /* Replace with your Affirm Public API Key */ "KZR9ML7CK86W5OMT", /* Your Affirm Public API Key */
+        script: "https://cdn1.affirm.com/js/v2/affirm.js",
+        session_id:"YOUR_VISITOR_SESSION_ID"
+      };
+      (function(l,g,m,e,a,f,b){var d,c=l[m]||{},h=document.createElement(f),n=document.getElementsByTagName(f)[0],k=function(a,b,c){return function(){a[b]._.push([c,arguments])}};c[e]=k(c,e,"set");d=c[e];c[a]={};c[a]._=[];d._=[];c[a][b]=k(c,a,b);a=0;for(b="set add save post open empty reset on off trigger ready setProduct".split(" ");a<b.length;a++)d[b[a]]=k(c,e,b[a]);a=0;for(b=["get","token","url","items"];a<b.length;a++)d[b[a]]=function(){};h.async=!0;h.src=g[f];n.parentNode.insertBefore(h,n);delete g[f];d(g);l[m]=c})(window,_affirm_config,"affirm","checkout","ui","script","ready");
+      // END AFFIRM.JS EMBED CODE 
+
+    </script>
+
+    <script type="text/javascript">
+      (function (doc) {
+        var addEvent = 'addEventListener',
+            type = 'gesturestart',
+            qsa = 'querySelectorAll',
+            scales = [1, 1],
+            meta = qsa in doc ? doc[qsa]('meta[name=viewport]') : [];
+
+        function fix() {
+          meta.content = 'width=device-width,minimum-scale=' + scales[0] + ',maximum-scale=' + scales[1];
+          doc.removeEventListener(type, fix, true);
+        }
+
+        if ((meta = meta[meta.length - 1]) && addEvent in doc) {
+          fix();
+          scales = [.25, 1.6];
+          doc[addEvent](type, fix, true);
+        }
+      }(document));
+    </script>
+    <title>{{ page_title }}{% if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif %}{% if current_page != 1 %} &ndash; Page {{ current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}</title>
+    <meta name="author" content="{{ shop.name | escape }}" />
+    <meta name="keywords" content="" />
+    {% if page_description %}<meta name="description" content="{{ page_description | escape }}" />{% endif %}
+    <meta name="p:domain_verify" content="c0bed4dc5b784460ec480e27238a4747" />
+    <meta name="google-site-verification" content="HCe8Wh3ON8PwjRHIsoK5EVLVOhOzQXQZqyiWmp85qqY" />
+    <link rel="canonical" href="{{ canonical_url }}" />
+    {{ content_for_header }}
+    {{ 'font-awesome.css' | asset_url | stylesheet_tag }}
+    {% if template == 'product' or template == 'product.new' %}
+    {{ 'jquery.fancybox.css' | asset_url | stylesheet_tag }}
+    {% endif %}
+    {{ 'reset.css' | asset_url | stylesheet_tag }}
+    {{ 'style.css' | asset_url | stylesheet_tag }}
+    {{ 'responsive.css' | asset_url | stylesheet_tag }}
+    <style type="text/css">
+      .center-align {
+        text-align: center;
+      }
+
+      .holiday-shipping {
+        margin-top: 15px;
+      }
+
+      .holiday-shipping span {
+        position: relative;
+        color: #cc0000;
+      }
+
+      .holiday-shipping span:before {
+        content: '\f06b';
+        position: relative;
+        margin-right: 5px;
+        font-family: 'FontAwesome';
+        font-size: 16px;
+        line-height: 1;
+      }
+    </style>
+    {{ 'hammer.min.js' | asset_url | script_tag }}
+    {{ 'hammer-time.min.js' | asset_url | script_tag }}
+    {{ 'jquery.min.js' | asset_url | script_tag }}
+    {{ 'jquery.cookie.js'  | asset_url | script_tag }}
+    {% if template == 'index' or page.handle == 'lookbook' %}
+    {{ 'jquery.slides.min.js' | asset_url | script_tag }}
+    {% endif %}
+    {% if template == 'product' or template == 'product.new' or template == 'page.wish-list' %}
+    {{ 'jquery.fancybox.js'  | asset_url | script_tag }}
+    {{ 'api.jquery.js' | shopify_asset_url | script_tag }}
+    {{ 'option_selection.js' | shopify_asset_url | script_tag }}
+    {% endif %}
+    {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
+    {{ 'shopify_common.js' | asset_url | script_tag }}
+    {% if template contains 'customers' %}
+    {{ 'customer_area.js'  | shopify_asset_url | script_tag }}
+    {% endif %}
+    {{ 'script.js' | asset_url | script_tag }}
+    <link type="image/png" href="{{ 'favicon.png' | asset_url }}" rel="icon" />
+    <link href="{{ 'apple-touch-icon.png' | asset_url }}" rel="apple-touch-icon" />
+    {% comment %}
+    <!-- Facebook Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+                               n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+                               t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+                                                                                                      document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+      fbq('init', '124264341367739');
+      fbq('track', "PageView");</script>
+    <noscript><img height="1" width="1" style="display:none"
+                   src="https://www.facebook.com/tr?id=124264341367739&ev=PageView&noscript=1"
+                   /></noscript>
+    <!-- End Facebook Pixel Code -->
+    {% endcomment %}
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                                                          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                                })(window,document,'script','dataLayer','GTM-NB4X8DH');</script>
+    <!-- End Google Tag Manager -->
+    <script type="text/javascript">
+      var $mcGoal = {'settings':{'uuid':'725dbaec6a4ceee79dba4e9b9','dc':'us11'}};
+      (function() {
+        var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;
+        sp.src = ('https:' == document.location.protocol ? 'https://s3.amazonaws.com/downloads.mailchimp.com' : 'http://downloads.mailchimp.com') + '/js/goal.min.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sp, s);
+      })();
+    </script>
+    <script type="text/javascript" src="//www.linkconnector.com/uts_lp.php?cgid=900673"></script>
+    {% if customer.id != 1651491909 %}
+    <script>
+      /* full story */
+      window['_fs_debug'] = false;
+      window['_fs_host'] = 'www.fullstory.com';
+      window['_fs_org'] = '3H5TX';
+      window['_fs_namespace'] = 'FS';
+      (function(m,n,e,t,l,o,g,y){
+        if (e in m && m.console && m.console.log) { m.console.log('FullStory namespace conflict. Please set window["_fs_namespace"].'); return;}
+        g=m[e]=function(a,b){g.q?g.q.push([a,b]):g._api(a,b);};g.q=[];
+        o=n.createElement(t);o.async=1;o.src='https://'+_fs_host+'/s/fs.js';
+        y=n.getElementsByTagName(t)[0];y.parentNode.insertBefore(o,y);
+        g.identify=function(i,v){g(l,{uid:i});if(v)g(l,v)};g.setUserVars=function(v){g(l,v)};
+        g.identifyAccount=function(i,v){o='account';v=v||{};v.acctId=i;g(o,v)};
+        g.clearUserCookie=function(c,d,i){if(!c || document.cookie.match('fs_uid=[`;`]*`[`;`]*`[`;`]*`')){
+          d=n.domain;while(1){n.cookie='fs_uid=;domain='+d+
+            ';path=/;expires='+new Date(0).toUTCString();i=d.indexOf('.');if(i<0)break;d=d.slice(i+1)}}};
+      })(window,document,window['_fs_namespace'],'script','user');
+
+      {% if customer %}
+      /* full story user */
+      FS.identify('{{ customer.id }}', {
+                  displayName: '{{ customer.first_name }} {{ customer.last_name }}',
+                  email: '{{ customer.email }}'
+                  // TODO: Add your own custom user variables here.
+                  });
+      {% endif %}
+    </script>
+    {% endif %}
+    <!-- Script Pixel for Anna Baker -->
+    <script>var shareasaleShopifySSCID=shareasaleShopifyGetParameterByName("sscid");function shareasaleShopifySetCookie(e,a,o,i,r){if(e&&a){var s,S=i?"; path="+i:"",h=r?"; domain="+r:"",t="";o&&((s=new Date).setTime(s.getTime()+o),t="; expires="+s.toUTCString()),document.cookie=e+"="+a+t+S+h}}function shareasaleShopifyGetParameterByName(e,a){a||(a=window.location.href),e=e.replace(/[\[\]]/g,"\\$&");var o=new RegExp("[?&]"+e+"(=([^&#]*)|&|#|$)").exec(a);return o?o[2]?decodeURIComponent(o[2].replace(/\+/g," ")):"":null}shareasaleShopifySSCID&&shareasaleShopifySetCookie("shareasaleShopifySSCID",shareasaleShopifySSCID,94670778e4,"/");</script>
+    <!-- Script Pixel for Anna Baker -->	
+  </head>
+  <body class="page-{% if template == 'index' %}home{% else %}{{ page.handle }}{% endif %}{% if page_title == 'Products' %}shop{% endif %}{% if template == 'blog' %}blog{% endif %}{% if template == 'archive' %}blog-post{% endif %}{% if template contains 'customer' %}account{% endif %}{% if template == 'cart' %}cart{% endif %}">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NB4X8DH" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div id="wrapper">
+      {% comment %}  
+      {% if settings.cart_free_domestic_shipping != blank %}
+      <!-- Remove comment after the weekend sale May 3rd -->
+
+      <div id="free-shipping">
+        <div>
+          Free Shipping For U.S. Orders Over ${{ settings.cart_free_domestic_shipping }}
+        </div>
+        {% comment %}
+        <div class="holiday-shipping">
+          <span>Last Day to Order for Guaranteed Christmas Delivery is December 15th.</span>
+        </div>
+        {% endcomment %}
+      </div>
+
+      {% endif %}
+      {% endcomment %}
+      <div id="header">
+        <div class="user container">
+          <div class="lang-currency">
+            <span>{{ settings.company_tagline }}</span>
+            {% comment %}
+            <span class="angle-down">Eng</span>
+            <span class="angle-down">USD</span>
+            {% endcomment %}
+          </div>
+          <div class="account">
+            {% if customer %}
+            <a class="fa-user{% if template contains 'customer' %} active{% endif %}" href="/account/" title="Account">Howdy, {{ customer.first_name }}!</a>
+            {% else %}
+            <a class="fa-user{% if template contains 'customer' %} active{% endif %}" href="/account/" title="Log In / Sign Up">Log In / Sign Up</a>
+            {% endif %}
+            {% if customer %}
+            <a class="fa-certificate" href="#rewards" data-st-intent="st:core:home"><span class="sweettooth-points-balance">(loading)</span> Points</a>
+            {% else %}
+            <a class="fa-certificate{% if page.handle == 'rewards' %} active{% endif %}" href="/pages/rewards/">Earn Points</a>
+            {% endif %}
+            {% comment %}
+            <a class="fa-gift{% if page.handle == 'wish-list' %} active{% endif %}" href="/pages/wish-list/" title="Wish List">Wish List</a>
+            {% endcomment %}  
+            <a class="fa-check-circle{% if template == 'cart' %} active{% endif%}" href="/cart/" title="Checkout">Checkout</a>
+          </div>
+        </div>
+        <div class="search-logo-cart">
+          <div class="container">
+            <h1 title="{{ shop.name | escape }}"><a href="/" title="{{ shop.name | escape }}"><span class="desktop">{{ shop.name }}</span><span class="mobile"><img src="{{ 'h1-haus-of-jr-logo-white.png' | asset_url }}" alt="{{ shop.name | escape }}" /></span></a></h1>
+
+            <form id="search" class="search" action="/search" method="get">
+              <fieldset>
+                <input type="hidden" name="type" value="product">
+                <input id="q" name="q" type="search" placeholder="Search..." value="" required="required" />
+                <button id="search-submit">
+                  <span class="fa-search"></span>
+                </button>
+              </fieldset>
+            </form>
+            <a class="fa-bars" href="#mobile-navigation" title="Mobile Navigation" rel="nofollow"></a>
+            <a class="fa-shopping-cart{% if template == 'cart' %} active{% endif %}" href="/cart/" title="Cart"><span class="items"><span class="count">{{ cart.item_count }}</span> <span class="text">{{ cart.item_count | pluralize: 'Item', 'Items' }}</span> -</span> <span class="subtotal">{{ cart.total_price | money }}</span></a>
+          </div>
+        </div>
+        <ul class="navigation container">
+          <li{% if template == 'index' %} class="active"{% endif %}>
+            <a href="/" title="Home">Home</a>
+          </li>
+          <li class="has-sub{% if template == 'collection' %} active{% endif %}">
+            <a href="/collections/all/" title="Shop">Shop</a>
+            <div class="sub">
+              <div class="float">
+                <div class="block">
+                  <span class="title">by Collection</span>
+                  {% for link in linklists.shop-by-collection.links %}
+                  <a class="link" href="{{ link.url }}/" title="{{ link.title | escape }}">{{ link.title }}</a>
+                  {% endfor %}
+                </div>
+              </div>
+              <div class="float">
+                <div class="block">
+                  <span class="title">by Category</span>
+                  {% for link in linklists.shop-by-category.links %}
+                  <a class="link" href="{{ link.url }}/" title="{{ link.title | escape }}">{{ link.title }}</a>
+                  {% endfor %}
+                </div>
+              </div>
+
+              <div class="float has-table">
+                <div class="table">
+                  <!-- Remove after weekend sale May 3rd -->
+
+                  <div class="table-cell">
+                    <h4 class="{{ settings.shop_dropdown_promo_icon }}" title="{{ settings.shop_dropdown_promo_title | escape }}">{{ settings.shop_dropdown_promo_title }}</h4>
+                    <p>
+                      {{ settings.shop_dropdown_promo_subtitle }}
+                    </p>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="float has-table">
+                <div class="table">
+                  <div class="table-cell">
+                    <h4 class="{{ settings.shop_dropdown_promo2_icon }}" title="{{ settings.shop_dropdown_promo2_title | escape }}">{{ settings.shop_dropdown_promo2_title }}</h4>
+                    <p>
+                      {{ settings.shop_dropdown_promo2_subtitle }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li{% if product.handle == 'digital-gift-card' %} class="active"{% endif %}>
+            <a href="/products/digital-gift-card/" title="Gift Card">Gift Card</a>
+          </li>
+          <li{% if page.handle == 'rewards' %} class="active"{% endif %}>
+            <a href="/pages/rewards/" title="Rewards">Rewards</a>
+          </li>
+          <li{% if page.handle == 'lookbook' %} class="active"{% endif %}>
+            <a href="/pages/lookbook/" title="Lookbook">Lookbook</a>
+          </li>
+          <li{% if template == 'blog' or template == 'archive' %} class="active"{% endif %}>
+            <a href="/blogs/news/" title="Blog">Blog</a>
+          </li>
+          <li{% if page.handle == 'about-us' %} class="active"{% endif %}>
+            <a href="/pages/about-us/" title="About Us">About Us</a>
+          </li>
+          <li class="account-mobile first{% if template contains 'customer' %} active{% endif %}">
+            {% if customer %}
+            <a class="fa-user{% if template contains 'customer' %} active{% endif %}" href="/account/" title="Account">Howdy, {{ customer.first_name }}!</a>
+            {% else %}
+            <a class="fa-user{% if template contains 'customer' %} active{% endif %}" href="/account/" title="Log In / Sign Up">Log In / Sign Up</a>
+            {% endif %}
+          </li>
+          <li class="account-mobile{% if template == 'explainer' %} active{% endif %}">
+            {% if customer %}
+            <a class="fa-certificate" href="#rewards" data-st-intent="st:core:home"><span class="sweettooth-points-balance">(loading)</span> Points</a>
+            {% else %}
+            <a class="fa-certificate{% if page.handle == 'rewards' %} active{% endif %}" href="/pages/rewards/">Earn Points</a>
+            {% endif %}
+          </li>
+          <li class="account-mobile{% if template contains 'customer' %} active{% endif %}">
+            <a class="fa-gift" href="/pages/wish-list/" title="Wish List">Wish List</a>
+          </li>
+        </ul>
+      </div>
+      {{ content_for_layout }}
+      <div id="push" style="display:none;"></div>
+    </div>
+    <div id="footer">
+      <div class="widgets" style="padding: 15px;">
+        <ul class="container">
+          <li class="customer-support">
+            <h4 title="Customer Support">Customer Support</h4>
+            {% for link in linklists.footer-menu.links %}
+            <div class="block">
+              <a href="{% if link.url == '/' %}{{ link.url }}{% else %}{{ link.url }}/{% endif %}" title="{{ link.title | escape }}">{{ link.title }}</a>
+            </div>
+            {% endfor %}
+          </li>
+          <li class="connect">
+            <h4 title="Connect with Us">Connect with Us</h4>
+            <div class="center-align">  
+              <a class="fa-twitter" href="{{ settings.twitter_url }}" title="Follow {{ shop.name | escape }} on Twitter" target="_blank"></a>
+              <a class="fa-facebook" href="{{ settings.facebook_url }}" title="Follow {{ shop.name | escape }} on Facebook" target="_blank"></a>
+              <a class="fa-instagram" href="{{ settings.instagram_url }}" title="Follow {{ shop.name | escape }} on Instagram" target="_blank"></a>
+            </div>
+          </li>
+          <li class="newsletter">
+            <h4 title="Newsletter">Newsletter</h4>
+
+            <!-- Begin MailChimp Signup Form -->
+            <div id="mc_embed_signup">
+              <form action="https://bm5150.com/public/webform/process/" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="newsletter-form validate" target="_blank" novalidate>
+                <input type="hidden" name="fid" value="iqid152zbkf4g3lrmtbvkm0qxx2j4" />
+                <input type="hidden" name="sid" value="a5dc076a35df588d270b612086895206" />
+                <input type="hidden" name="delid" value="" />
+                <input type="hidden" name="subid" value="" />
+                <input type="hidden" name="td" value="" />
+                <input type="hidden" name="formtype" value="addcontact" />
+                <script type="text/javascript">
+                  var fieldMaps = {};
+                </script>
+
+                <div id="mc_embed_signup_scroll">
+                  <div class="mc-field-group">
+                    <div class="mc-field-group-inner" style="position: relative;">
+                      <label for="mce-EMAIL">Sign up for the latest news, offers and styles!</label>
+                      <input type="email" value="" name="145166" class="required email" id="mce-EMAIL" placeholder="E-Mail Address">
+                      <input type="hidden" name="145167[1693592]" value="true" />
+                      <button id="mc-embedded-subscribe" name="subscribe">
+                        <span class="fa-paper-plane"></span>
+                      </button>
+                    </div>
+                  </div>
+                  <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+                  </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                  <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_ea916f3a788575503822f9be6_9d049eb2d4" tabindex="-1" value=""></div>
+                </div>
+              </form>
+            </div>
+            <!--End mc_embed_signup-->
+
+          </li>
+          </div>
+        </ul>
+      <div class="payments-copyright">
+        <div class="table">
+          <div class="table-cell">
+            <div class="payments">
+              <span class="fa-cc-amex"></span>
+              <span class="fa-cc-diners-club"></span>
+              <span class="fa-cc-discover"></span>
+              <span class="fa-cc-jcb"></span>
+              <span class="fa-cc-mastercard"></span>
+              <span class="fa-cc-paypal"></span>
+              <span class="fa-cc-visa"></span>
+            </div>
+            <div class="copyright">
+              Copyright &#169; {{ 'now' | date: '%Y' }} {{ shop.name }}. All Rights Reserved.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% comment %}{% include 'email-popup' %}{% endcomment %}
+    <script type="text/javascript">
+      $(function() {
+        {% if template == 'index' %}
+        home_slides();
+        //shop_taps();
+        {% endif %}
+        {% if template == 'product' or template == 'product.new' %}
+        {% if customer %}
+        account_wish_list_exists({{ customer.id }}, {{ product.id }});
+        {% endif %}
+        account_wish_list_add_anchor();
+        account_wish_list_delete_anchor();
+        {% endif %}
+        {% if template == 'page.lookbook' %}
+        //lookbook_slides();
+        {% endif %}
+        {% if template contains 'customers' %}
+        account();
+        {% endif %}
+        {% if template == 'page.wish-list' and customer %}
+        {% if customer %}
+        account_wish_list({{ customer.id }});
+        {% endif %}
+        account_wish_list_delete_anchor();
+        {% endif %}
+      });
+    </script>
+
+
+
+    {% comment %}
+    MailChimp Pop Up
+    {% endcomment %}
+    {% comment %}
+    <script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script><script type="text/javascript">require(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us11.list-manage.com","uuid":"725dbaec6a4ceee79dba4e9b9","lid":"b65eec0145"}) })</script>
+    {% endcomment %}
+    {% include 'smile-initializer' %}
+
+  </body>
+</html>

@@ -1,0 +1,25 @@
+<div class="h2">
+    <div class="h2-cell">
+        <h2 titl="{{ page.title | escape }}">{{ page.title }}</h2>
+        <div class="breadcrumbs">
+            <a href="/" title="Home">Home</a> / 
+            <a class="active" href="{{ page.url }}/" title="{{ page.title | escape }}">{{ page.title }}</a>
+        </div>
+    </div>
+</div>
+<div id="content" class="container padding-bottom">
+	{{ page.content }}
+</div>
+{% if page.handle == 'sizing' %}
+	<script type="text/javascript">
+	$(function() {
+		var window_width = $(window).width();
+
+		if(window_width < 480) {
+			var sizing_paragraph = $('.sizing-paragraph').detach();
+			
+			sizing_paragraph.appendTo('.sizing-chart');
+		}
+	});
+	</script>
+{% endif %}

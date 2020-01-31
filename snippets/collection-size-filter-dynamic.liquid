@@ -1,0 +1,44 @@
+<div class="size-options" style="display: none;">
+    <a id="size-All" href="#" class="size-filter-option js-current-filter">All</a>
+    {% assign available_sizes = '' %}
+
+    {% for product in collections.all.products limit: limit %}
+        {% for variant in product.variants %}
+            {% unless available_sizes contains variant.title %}
+                {% capture available_sizes %}{{ available_sizes }}, {{ variant.title }}{% endcapture %}
+                <a id="size-{{ variant.title }}" href="#" class="size-filter-option">{{ variant.title }}</a>
+            {% endunless %}
+        {% endfor %}
+    {% endfor %}
+</div>
+<select id="size-options" name="size-options" class="sort-select size-options btn--tertiary">
+    <option value="All">All</option>
+    {% assign available_sizes_split = available_sizes | split: ', ' %}
+
+    {% for size in available_sizes_split %}
+        {% if size != '' %}
+            {% unless size contains '$' or size == 'SMALL' or size == 'LARGE' %}
+                <option value="{{ size }}">{{ size }}</option>
+            {% endunless %}
+        {% endif %}
+    {% endfor %}
+</select>
+{{ 'product-filter.js' | asset_url | script_tag }}
+<script type="text/javascript">
+$(function() {
+	var cookieFilterSize = $.cookie('_hojr_filter_size');
+  	
+  	if(cookieFilterSize) {
+    	$.cookie('_hojr_filter_size', cookieFilterSize, { expires: 30, path: '/' });
+      	
+      	$('#size-options').val(cookieFilterSize).trigger('change');
+    }
+  	
+  	$('#size-options').on('change', function(e) {
+    	var selected = $(this),
+            selectedVal = selected.val();
+      	
+      	$.cookie('_hojr_filter_size', selectedVal, { expires: 30, path: '/' });
+    });
+});
+</script>

@@ -1,0 +1,62 @@
+<div class="h2">
+    <div class="h2-cell">
+        <h2 titl="{{ page.title | escape }}">{{ page.title }}</h2>
+        <div class="breadcrumbs">
+            <a href="/" title="Home">Home</a> / 
+            <a class="active" href="{{ page.url }}/" title="{{ page.title | escape }}">{{ page.title }}</a>
+        </div>
+    </div>
+</div>
+<div id="content" class="container padding-bottom">
+	<div id="banners" class="lookbook-photos"></div>
+    <div class="blog-sidebar lookbook-sidebar">
+        <div class="block">
+            <h4 title="Lookbooks"><span>Lookbooks</span></h4>
+            <ul class="categories"></ul>
+        </div>
+        <div class="block shop-the-look">
+            <h4 title="Shop The Look"><span>Shop The Look</span></h4>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $.getJSON('https://iproch.design/axp-social-feeds/?shopify-store=hausofjr&social-network=lookbooks', function(result) {
+        var collection_count = 0,
+            photo_count = 0;
+
+        // collections
+        $.each(result, function(i, collection) {
+            $('<li' + (collection_count == 0 ? ' class="active"' : '') + '><a href="#' + i + '" title="' + collection.collection.collection_title + '">' + collection.collection.collection_title + '</a></li>').prependTo('.lookbook-sidebar .categories');
+            $('<div id="lookbook-' + i + '" class="lookbook-banners lookbook-' + i + (collection_count == 0 ? ' active' : '') + '"></div>').prependTo('.lookbook-photos');
+
+            // photos
+            $.each(collection.photos, function(ix, photos) {
+                var photo_src = photos.photo.photo_src.replace('ocean-lab.pinkdolphinonline.com/pinkdolphin/', 'iproch.design/lookbooks/');
+
+                if(photo_count == 0) {
+                    $('.lookbook-sidebar .categories li a[href="#' + i + '"]').attr('data-photo-id', photos.photo.photo_id);
+                }
+
+                $('<ul class="latest-posts photo-' + photos.photo.photo_id + '"></ul>').appendTo('.lookbook-sidebar .shop-the-look');
+                $('<div id="banner-' + photos.photo.photo_id + '" class="banner"><img src="' + photo_src + '" alt="' + collection.collection.collection_title + '" /></div>').appendTo('.lookbook-photos .lookbook-' + i);
+
+                // products
+                $.each(photos.products, function(ixx, products) {
+                    if(products.title != 'productitle') {
+                        $('<li><a href="' + products.link + '" title="' + products.title + '" target="_blank"><span class="img"><img src="' + products.photo + '" alt="' + products.title + '" /></span><span class="table"><span class="table-cell"><span class="title">' + products.title + '</span></span></span></a></li>').appendTo('.lookbook-sidebar .shop-the-look .photo-' + photos.photo.photo_id);
+                    }
+                });
+                
+                photo_count ++;
+            });
+
+            collection_count ++;
+            photo_count = 0;
+        });
+    }).done(function() {
+        lookbook_collections();
+        //lookbook_slides('#lookbook-collection-3');
+
+        $('a[href="#hojr-spring-outerwear-2020"]').trigger('click');
+    });
+</script>

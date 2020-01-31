@@ -1,0 +1,175 @@
+<style type="text/css">
+/* email popup */
+.stop-scrolling { overflow: hidden; height: 100%; }
+
+.email-overlay { z-index: 9999999; display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.75); }
+
+.email-overlay-outer { z-index: 9999999; display: none; position: fixed; top: 0; right: 0; bottom: 0; left: 0; margin: auto; width: 610px; height: 300px; background: #ffffff; border: 10px solid #ffffff; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; }
+  	.email-overlay-close { height: 20px; line-height: 20px; }
+  		.email-overlay-close a { float: right; color: #979797; }
+  			.email-overlay-close a:before { font-family: 'FontAwesome'; font-size: 16px; color: #979797; line-height: 1; }
+  			.email-overlay-close a:hover:before { color: #000000; }
+
+.email-overlay-container { z-index: 9999999; display: none; position: relative; margin: 0 10px; width: auto; height: auto; background: #ffffff; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; }
+	.email-overlay-container h2 { font-size: 42px; text-transform: uppercase; letter-spacing: 1.5px; text-align: left; line-height: 1; }
+  		.email-overlay-container h2 span { display: inline-block; }
+  		.email-overlay-container h2 span.small { display: block; font-size: 12px; color: #000000; font-weight: 400; }
+  		.email-overlay-container h2 span.blue { font-size: 42px !important; color: #cc0033; }
+    /*.email-overlay-container form { position: relative; }
+  		.email-overlay-container form input[type='submit'] { background: #ffffff !important; border-color: #eeeeee !important; color: #979797 !important; }
+  			.email-overlay-container form input[type='submit']:hover { background: #cc0033 !important; border-color: #cc0033 !important; color: #ffffff !important; }*/
+
+#mc_embed_signup-popup { margin: 0 !important; padding: 0 !important; border: 0 !important; }
+    #mc_embed_signup-popup input.mce_inline_error { border-color: #ff0000 !important; }
+    #mce-responses a { text-decoration: underline; }
+        #mce-responses a:hover { color: #ea2556; }
+
+#mc_embed_signup-popup input[type='submit'] { background: #ffffff !important; border: 1px solid #000000 !important; font-size: 12px !important; color: #000000 !important; }
+    #mc_embed_signup-popup input[type='submit']:hover { background: #000000 !important; color: #ffffff !important; }
+
+@media screen and (max-width: 768px) {
+  	#admin_bar_iframe { display: none !important; }
+  	.email-overlay-outer { margin: 20px; width: auto; height: auto; }
+  	.email-overlay-container, .email-overlay-container h2 { text-align: center; }
+  		.email-overlay-container h2, .email-overlay-container h2 span.blue, .email-popup-code { font-size: 32px !important; }
+  	
+  	#mce-EMAIL { display: block; float: none !important; width: 100% !important; }
+  	#mc-embedded-subscribe { display: block; float: none !important; margin-top: 1px !important; width: 100% !important; }
+}
+</style>
+{{ 'jquery.cookie.js' | asset_url | script_tag }}
+<script type="text/javascript">
+idleTime = 0;
+
+$(function() {
+  	var cookieView = $.cookie('_hojr_cookie_view');
+    	$limit = 0;
+  	
+  	if(cookieView == 'NaN') {
+      	$.cookie('_hojr_cookie_view', 1, { expires: 30, path: '/' });
+	} else {
+      	cookieView ++;
+      	
+  		$.cookie('_hojr_cookie_view', cookieView, { expires: 30, path: '/' });
+	}
+    
+    //if($.cookie('_hojr_viewed') != '1') {
+  	if($.cookie('_hojr_cookie_view') == 'NaN' || cookieView == 15 || cookieView == 25) {
+		//$('.cookie').html('<p>You haven\'t been to this page recently, or you\'ve cleared your browser\'s stored cookies.  Shortly, you\'ll see the email subscription popup.</p>');
+		
+      	/*$.get('form.html', function(data) {
+			$('.email-overlay').html(data);
+		});*/
+        
+		function timerIncrement() {
+			idleTime = idleTime + 1;
+          	
+			if(idleTime > $limit) {
+				$('.email-overlay, .email-overlay-outer, .email-overlay-container').show();
+                
+				idleTime = 0;
+			}
+		}
+        
+        // Increment the idle time counter every second.
+        var idleInterval = setInterval(timerIncrement, 1000); // 1 second
+        
+        // Zero the idle timer on mouse movement.
+        $(this).mousemove(function (e) {
+            idleTime = 0;
+        });
+        
+        $(this).keypress(function (e) {
+            idleTime = 0;
+        });
+		
+        $.cookie('_hojr_viewed', '1', { expires: 30, path: '/' });
+    } else {
+        //$('.cookie').html('<p>You have been to this page recently. You won\'t see the email subscription popup.</p>');
+    }
+  	
+  	$('.email-overlay, .fa-close').on('click', function(e) {
+        e.preventDefault();
+		
+        $('.email-overlay, .email-overlay-outer, .email-overlay-container').hide();
+		
+        $limit = 9999;
+    });
+  	
+  	/* form ajax (mailchimp callback) */
+  	var $form = $('#mc-embedded-subscribe-form-popup');
+    
+    if($form.length > 0) {
+        $('#mc-embedded-subscribe-form-popup input[type="submit"]').bind('click', function (e) {
+            if(e) { e.preventDefault(); }
+            
+            //if(validate_input($form)) { register($form); }
+            
+            register($form);
+        });
+    }
+});
+
+function register($form) {
+    $.ajax({
+        type: $form.attr('method'),
+        url: $form.attr('action'),
+        data: $form.serialize(),
+        cache: false,
+        dataType: 'jsonp',
+        contentType: 'application/json; charset=utf-8',
+        error: function(error) {
+            console.log('Could not connect to the registration server. Please try again later.');
+        },
+        success: function(data) {
+            if(data.result != 'success') {
+              	var data_msg = data.msg,
+                    data_msg = data_msg.replace('0 - ', '');
+              	
+				        //console.log('Error: ' + data.msg);
+              	
+              	$('#mc_embed_signup-popup #mce-EMAIL').css({'background': '#ffcccc'}).focus();
+              	$('#mc_embed_signup-popup #mce-error-response').html(data_msg).show();
+            } else {
+              	//console.log('Success: ' + data.msg);
+              	
+              	$('.email-overlay-container h2, #mc-embedded-subscribe-form-popup, .label, #mc_embed_signup-popup .best-msg').css({'display': 'none'});
+              	$('#mc_embed_signup-popup').after('<span style="display: table; width: 100%; height: 250px; text-align: center;"><span style="display: table-cell; height: 100%; vertical-align: middle;"><p style="margin: 0;"><span>Thank you for subscribing!</span><br />Enjoy <span style="font-weight: 600 !important; text-transform: uppercase;">10% off</span> your next order with this unique code.</p><p class="email-popup-code" style="margin-top: 20px; font-size: 32px; color: #cc0033; font-weight: 600; text-transform: uppercase; text-align: center; line-height: 1;">4I70X69HQ9HX</p></span></span>');
+              	//$('#mc_embed_signup-popup').after('<span style="display: table; width: 100%; height: 250px; text-align: center;"><span style="display: table-cell; height: 100%; vertical-align: middle;"><p style="margin: 0;"><span style="font-size: 14px !important;">Thank you for subscribing!</span><br /><ul class="inline-list social-icons" style="margin: 30px 0 0 0;"><li style="margin-bottom: 0;"><a class="icon-fallback-text" href="https://twitter.com/HAUSOFJRsupport" title="Haus of JR on Twitter" target="_blank"><span class="icon icon-twitter" aria-hidden="true"></span><span class="fallback-text">Twitter</span></a></li><li style="margin-bottom: 0;"><a class="icon-fallback-text" href="https://www.facebook.com/HAUS-OF-JR-455360291333601/timeline/" title="Haus of JR on Facebook" target="_blank"><span class="icon icon-facebook" aria-hidden="true"></span><span class="fallback-text">Facebook</span></a></li><li style="margin-right: 0; margin-bottom: 0;"><a class="icon-fallback-text" href="https://instagram.com/hausofjr/" title="Haus of JR on Instagram" target="_blank"><span class="icon icon-instagram" aria-hidden="true"></span><span class="fallback-text">Instagram</span></a></li></ul></p></span></span>');
+            }
+        }
+    });
+}
+</script>
+<div class="email-overlay"></div>
+<div class="email-overlay-outer">
+    <div class="email-overlay-close"><a class="fa-close" href="#close-overlay" title="Close" rel="nofollow"></a></div>
+    <div class="email-overlay-container">
+        <h2 title="Haus of JR Newsletter Sign Up" style="letter-spacing: normal;">
+            <span class="small">Sign Up for the</span>
+            <span class="blue">Haus of JR</span> Newsletter
+        </h2>
+        <div id="mc_embed_signup-popup">
+            <form id="mc-embedded-subscribe-form-popup" name="mc-embedded-subscribe-form" class="newsletter-form popup validate" method="get" action="//Hausofjr.us11.list-manage.com/subscribe/post-json?u=725dbaec6a4ceee79dba4e9b9&amp;id=b65eec0145&amp;c=?" novalidate style="margin: 20px 0 0 0;">
+                <fieldset>
+                    <div id="mc_embed_signup_scroll">
+                        <label for="EMAIL" style="display: none;">E-Mail Address</label>
+                        <div style="position: absolute; left: -5000px;"><input type="text" name="b_55dda835c38561536aa0dc815_4d24e68f75" tabindex="-1" value=""></div>
+                        <input id="mce-EMAIL" name="EMAIL" class="required" type="email" placeholder="E-Mail Address" required="required" style="float: left; margin: 0; width: -moz-calc(100% - 139px); width: -webkit-calc(100% - 139px); width: calc(100% - 139px); background: #f1f1f1; border: 1px solid #f1f1f1;" />
+                        <input type="hidden" name="MMERGE14" id="MMERGE14" value="Website Popup" />
+                        <input id="mc-embedded-subscribe" name="subscribe" type="submit" value="Subscsribe" style="float: left; margin-top: 0; margin-left: 10px !important; width: 107px; height: 42px;" />
+                    	<div id="mce-responses" class="clear" style="clear: both; overflow: hidden; min-height: 1%;">
+                            <div class="response" id="mce-error-response" style="display: none; margin-top: 20px; text-align: center;"></div>
+                            <div class="response" id="mce-success-response" style="display: none; margin-top: 20px; text-align: center;"></div>
+                        </div><!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                  	</div>
+                </fieldset>
+            </form>
+            <p class="label" style="margin-top: 20px; font-family: 'Playfair Display', sans-serif; color: #979797; text-align: center;">
+                The best way to keep up to date. No spam. No junk.
+            </p>
+        </div>
+        <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+    </div>
+</div>
+<div class="cookie"></div>

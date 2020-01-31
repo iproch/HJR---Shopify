@@ -1,0 +1,195 @@
+<!-- Begin ReCharge code -->
+{% include 'subscription-cart-footer' %}
+<!-- End ReCharge code -->
+<div class="h2">
+    <div class="h2-cell">
+        <h2 titl="Cart">Cart</h2>
+        <div class="breadcrumbs">
+            <a href="/" title="Home">Home</a> / 
+            <a class="active" href="{{ page.url }}/" title="Cart">Cart</a>
+        </div>
+    </div>
+</div>
+<div id="content" class="container padding-bottom">
+    {% if cart.item_count > 0 %}
+        <div class="mobile-swipe"><span>Swipe</span></div>
+        <form class="cart" action="/cart" method="post">
+            <div class="mobile-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Item</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in cart.items %}
+                            <tr>
+                                <td>
+                                    <a href="{{ item.url }}" title="{{ item.product.title | escape }}"><img src="{{ item | img_url: 'compact' }}" alt="{{ item.product.title | escape }}" /></a>
+                                </td>
+                                <td>
+                                    <a href="{{ item.url }}" title="{{ item.product.title | escape }}">{{ item.product.title }}</a>
+                                    {% for option_title in item.product.options %}
+                                        {% if option_title != 'Title' %}
+                                            <span>{{ option_title }}: <span>{{item.variant.options[forloop.index0] }}</span></span>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% for p in item.properties %}
+                                        {% unless p.last == blank or p.first == "subscription_id" or p.first == "shipping_interval_frequency" or p.first == "shipping_interval_unit_type" %}
+                                            {{ p.first }}
+                                            {% if p.last contains '/uploads/' %}
+                                                <span><a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a></span>
+                                            {% else %}
+                                                <span>{{ p.last }}</span>
+                                            {% endif %}
+                                        {% endunless %}
+                                    {% endfor %}
+                                </td>
+                                <td class="money">
+                                    {{ item.price | money }}
+                                </td>
+                                <td>
+                                    <input id="updates_{{ item.id }}" name="updates[]" class="quantity" type="number" value="{{ item.quantity }}" />
+                                </td>
+                                <td class="money">
+                                    {{ item.line_price | money }}
+                                </td>
+                                <td>
+                                    <a class="fa-minus-circle" href="/cart/change?line={{ forloop.index }}&quantity=0" title="Remove {{ item.product.title | escape }} from Cart"><span>Remove</span></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-foot">
+                <div class="note">
+                    {% if settings.cart_note == true %}
+                        <textarea name="note" placeholder="Have something nice to say? Type it here! :}">{{ cart.note }}</textarea>
+                    {% endif %}
+                  	{% comment %}
+                    <div class="impulse gift-wrapping-notice">
+                        {% include 'gift-wrapping' %}
+                    </div>
+                  	{% endcomment %}
+                </div>
+                <div class="totals">
+                    <div class="block subtotal-block">
+                        <div class="float-right">
+                            <span class="key">Subtotal</span>
+                          	<span class="value subtotal">{{ cart.total_price | money }}</span> 
+                        </div><br>
+						
+                      <!--In Shopify, the data-amount field should be populated with your cart total variable. Example:
+
+<p class="affirm-as-low-as" data-amount="{{cart.total_price}}"></p> 
+                        </div><br>
+                            <!--Last Day to Order for Guaranteed Christmas Delivery is December 15th. -->
+						<span id='tzpst'></span> 
+                    </div>
+                      <p class="affirm-as-low-as" data-page-type="cart" data-amount="{{cart.total_price}}"></p>
+                 
+                      <span id='tzpst'></span> 
+                    </div>
+              <!-- Remove comment after weekend sale May 3rd -->
+                 
+                  {% if settings.cart_free_domestic_shipping != blank %}
+                        {% capture cart_total_price %}{{ cart.total_price }}{% endcapture %}
+                        {% capture cart_free_domestic_shipping_amount_left %}{{ settings.cart_free_domestic_shipping | remove: '.' | minus: cart_total_price }}{% endcapture %}
+                        <div class="block">
+                            <!-- {{ cart.total_price }} -->
+                            <!-- {{ settings.cart_free_domestic_shipping | remove: '.' }} -->
+                            <!-- {{ settings.cart_free_domestic_shipping | remove: '.' | minus: cart.total_price | money }} -->
+                            {% if cart_free_domestic_shipping_amount_left > '0' %}
+                                 Add <strong class="add-more-total">{{ cart_free_domestic_shipping_amount_left | money }}</strong> more to your order to qualify for Free U.S. Shipping!
+                            {% else %}
+                                You Earned Free U.S. Shipping!
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                  
+                  
+                    <div class="block">
+                        <div class="float-right">
+                            <input id="cart-update" name="update" class="cart-update-submit button" style=" margin-bottom:10px;margin-top:10px;" type="submit" value="Update Cart" />
+                            <input id="cart-checkout" name="checkout" class="cart-checkout-submit button" type="submit" value="Checkout" />
+                            {% if additional_checkout_buttons %}
+<span class="additional-checkout-buttons">
+
+                                <p class="additional-payments" style="display: inline-block; margin-top: 0;; margin-left: 10px;"><span class="additional-checkout-buttons>{{ content_for_additional_checkout_buttons }}</span></p>
+                            
+</span>
+{% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </form>
+     {% else %}
+        <div class="content-margin-top">
+            <p class="no-products">It appears that your cart is currently empty! You can continue browsing <a href="/collections/all/">here</a>.</p>
+        </div>
+    {% endif %}
+</div>
+
+<script>
+    
+  var month = '0';     //  '*' for next month, '0' for this month or 1 through 12 for the month 
+var day = '+0';       //  Offset for day of month day or + day  
+var hour = 14;        //  0 through 23 for the hours of the day
+var tz = -7;         //  Offset for your timezone in hours from UTC
+var lab = 'tzpst';    //  The id of the page entry where the timezone countdown is to show. For example on this page, <span id="tzpst"></span>
+
+function start() {displayTZCountDown(setTZCountDown(month,day,hour,tz),lab);}
+
+    // **    The start function can be changed if required   **
+window.onload = start;
+
+  
+  function setTZCountDown(month,day,hour,tz) 
+{
+var toDate = new Date();
+if (month == '*')toDate.setMonth(toDate.getMonth() + 1);
+else if (month > 0) 
+{ 
+if (month <= toDate.getMonth())toDate.setYear(toDate.getYear() + 1);
+toDate.setMonth(month-1);
+}
+if (day.substr(0,1) == '+') 
+{var day1 = parseInt(day.substr(1));
+toDate.setDate(toDate.getDate()+day1);
+} 
+else{toDate.setDate(day);
+}
+toDate.setHours(hour);
+toDate.setMinutes(0-(tz*60));
+toDate.setSeconds(0);
+var fromDate = new Date();
+fromDate.setMinutes(fromDate.getMinutes() + fromDate.getTimezoneOffset());
+var diffDate = new Date(0);
+diffDate.setMilliseconds(toDate - fromDate);
+return Math.floor(diffDate.valueOf()/1000);
+}
+function displayTZCountDown(countdown,tzpst) 
+{
+if (countdown < 0) document.getElementById(tzpst).innerHTML = ""; 
+else {var secs = countdown % 60; 
+if (secs < 10) secs = '0'+secs;
+var countdown1 = (countdown - secs) / 60;
+var mins = countdown1 % 60; 
+if (mins < 10) mins = '0'+mins;
+countdown1 = (countdown1 - mins) / 60;
+var hours = countdown1 % 24;
+var days = (countdown1 - hours) / 24;
+      document.getElementById(tzpst).innerHTML = ' '  +"<span style= font-weight:bold;>"+hours + ' hrs ' +mins+ ' mins '+secs+'s'+"</span>" +  ;
+setTimeout('displayTZCountDown('+(countdown-1)+',\''+tzpst+'\');',999);
+}
+}
+//-->
+
+</script>

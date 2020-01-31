@@ -1,0 +1,31 @@
+<div class="blog-sidebar">
+    <div class="block">
+        <h4 title="Categories"><span>Categories</span></h4>
+        <ul class="categories">
+            {% for link in linklists.blog-categories.links %}
+                <li{% if link.url == blog.url %} class="active"{% endif %}>
+                    <a href="{{ link.url }}/" title="{{ link.title | escape }}">{{ link.title }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="block">
+        <h4 title="Latest Posts"><span>Latest Posts</span></h4>
+        <ul class="latest-posts">
+            {% for article in blogs.news.articles limit: 2 %}
+                <li>
+                    <a href="{{ article.url }}/" title="{{ article.title | escape }}">
+                        <span class="img">
+                            <img src="{{ article.image.src | img_url: 'medium' }}" alt="{{ article.title | escape }}" />
+                        </span>
+                        <span class="table">
+                            <span class="table-cell">
+                                <span class="title">{{ article.title }}</span>
+                            </span>
+                        </span>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+{% assign count = paginate.pages %}
+
+{% if paginate.previous.is_link %}
+	<a class="pagination previous" href="{{ paginate.previous.url }}" title="Previous"><span>Previous</span></a>
+{% endif %}
+
+{% for part in (1..count) %}
+	<a class="pagination page-{{ forloop.index }}{% if paginate.current_page == part %} active{% endif %}" href="?page={{ forloop.index }}" title="Page {{forloop.index }}"><span>{{ forloop.index }}</span></a>{% comment %}add this to the href if needed for collections, not home page pagination. {{ collection.url }}{% endcomment %}
+{% endfor %}
+
+{% if paginate.next.is_link %}
+	<a class="pagination next" href="{{ paginate.next.url }}" title="Next"><span>Next</span></a>
+{% endif %}

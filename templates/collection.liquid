@@ -1,0 +1,125 @@
+<div class="h2">
+  <div class="h2-cell">
+
+    <h2 title="Shop">Shop</h2>
+    <div class="breadcrumbs">
+      <a href="/" title="Home">Home</a> / 
+      <a href="/collections/all/" title="Shop">Shop</a> / 
+      <a class="active" href="{% if collection.url != blank %}{{ collection.url }}/{% else %}/collections/all/{% endif %}" title="{{ collection.title | escape }}">{{ collection.title }}</a>
+      {% if collection.handle == 'bogo-denim' %}<h2 style="margin-top:10px;">Buy One, Get One Free!</h2>
+      <p style="font-size: 14px;">*Discount automatically applied at checkout.</p>{% endif %}  
+      {% if collection.handle == 'sweatsuits' %}<h2 style="margin-top:10px;">Buy a matching set, get 20% Off!</h2>
+      <p style="font-size: 14px;color:red;font-weight:700;padding:10px 5px; background-color:black;display:inline-block;">*Use code SETS20 at checkout.</p>{% endif %}
+    </div>
+  </div>
+</div>
+<div id="content" class="container padding-bottom">
+  {% paginate collection.products by settings.products_per_page %}
+  <div class="sort">
+    <span class="sort-title">Sort by:</span>
+    <div class="sort-select-wrapper">
+      <select id="sort-by-select" name="sort-by-select" class="sort-select sort-by">
+        <option value="manual">Featured</option>
+        <option value="best-selling">Best Selling</option>
+        <option value="title-ascending">Name: A-Z</option>
+        <option value="title-descending">Name: Z-A</option>
+        <option value="price-ascending">Price: Low to High</option>
+        <option value="price-descending">Price: High to Low</option>
+        {% comment %}
+        <option value="created-ascending">Arrival: Oldest to Newest</option>
+        <option value="created-descending">Arrival: Newest to Oldest</option>
+        {% endcomment %}
+      </select>
+    </div>
+  </div>
+  {% if collection.products_count >= 1 %}
+  <ul class="products-grid">
+    {% for product in collection.products limit: settings.products_per_page %}
+    {% include 'product-grid-item' %}
+    {% endfor %}
+  </ul>
+  <div class="pagination">
+    {% if paginate.pages > 1 %}
+    {% include 'pagination' %}
+    {% endif %}
+  </div>
+  <div id="product-list-foot"></div>
+  {% else %}
+  <div class="content-margin-top">
+    <p class="no-products">You have no products in your {{ collection.title }} collection. <a href="http://www.shopify.com/admin/collections">Add some.</a></p>
+  </div>
+  {% endif %}
+  {% endpaginate %}
+</div>
+<script type="text/javascript">
+  jQuery('.sort-by').val('{{ collection.sort_by | default: collection.default_sort_by }}').on('change', function() {
+                         Shopify.queryParams.sort_by = jQuery(this).val();
+  location.search = jQuery.param(Shopify.queryParams).replace(/\+/g, '%20');
+  });
+</script>
+
+<script type="text/javascript">
+  function ScrollExecute() {
+    scrollNode = $('.products#more').last();
+    scrollURL = $('.products#more p a').last().attr("href");
+
+    if(scrollNode.length > 0 && scrollNode.css('display') != 'none') {
+      $.ajax({
+        type: 'GET',
+        url: scrollURL,
+        beforeSend: function() {
+          scrollNode.clone().empty().insertAfter(scrollNode).append('<div class="paginate" style="clear: both; display: block; margin-top: 20px; text-align: center;">Loading...</div>');
+          scrollNode.hide();
+        },
+        success: function(data) {
+          scrollNode.next().parent().remove();
+
+          var filteredData = $(data).find('.product');
+
+          filteredData.insertBefore($('#product-list-foot'));
+
+          $('.grid .clear').remove();
+
+          clear_fix();
+
+          isActive = false;
+        },
+        dataType: 'html'
+      });
+    }
+  }
+
+  var isActive = false;
+
+  $(document).ready(function() {
+    clear_fix();
+
+    $(window).scroll(function() {
+      if(!isActive && $(document).height() - 800 < ($(document).scrollTop() + $(window).height())) {
+
+        $.doTimeout('scroll', 200, ScrollExecute);
+        isActive = true;
+      };
+    });
+  });
+
+  function clear_fix() {
+    if($('body').width() <= 768) {
+      $('.grid li:nth-child(2n)').after('<li class="clear"></li>');
+    } else {
+      $('.grid li:nth-child(4n)').after('<li class="clear"></li>');
+    }
+  }
+</script>
+
+<script src="https://unpkg.com/infinite-scroll@3/dist/infinite-scroll.pkgd.min.js"></script>
+<!-- Infinite Scroll made by Metafuzzy https://infinite-scroll.com/ -->
+<script>
+  $('.products-grid').infiniteScroll({
+    // options
+    path: '.pagination.next',
+    append: '.js-size-filter ',
+    history: false,
+  });
+
+</script>

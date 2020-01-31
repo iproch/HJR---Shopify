@@ -1,0 +1,232 @@
+<!-- Redesign -->
+<section class="banner-row" style="margin-left:2.5%;margin-right:2.5%;">
+        <div class="clear-both"></div>
+        <a class="img-box wide-box adjusted-mailing" style="background-position:center;background-image:url({{ section.settings.wide-image | img_url:'1280x' }});" href="{{ section.settings.wide-link }}" target="_blank"></a>
+</section>
+
+{% for block in section.blocks %}
+<div style="text-align:center;"><h2 class="redo-heading margin-top-100">{{ section.settings.heading }}</h2></div>
+
+<section class="banner-row" style="margin-left:5%;margin-right:5%;">
+        <div class="width45">
+          <a href="{{ block.settings.link1 }}" style="background-image: url({{ block.settings.image1 | img_url:'1280x' }});background-size: cover;background-position: center;background-repeat:no-repeat;display:block;" class="img-box">
+            <div class="redesign-cta reduced-cta"><p class="update-cta-txt">{{ block.settings.cta1 }}</p></div>
+          </a>
+        </div>
+      
+        <div class="width45">
+          <a href="{{ block.settings.link2 }}" style="background-image: url({{ block.settings.image2 | img_url:'1280x' }});background-size: cover;background-position: center;background-repeat:no-repeat;display:block;" class="img-box">
+            <div class="redesign-cta reduced-cta"><p class="update-cta-txt">{{ block.settings.cta2 }}</p></div>
+          </a>
+        </div>
+</section>
+
+<section class="banner-row" style="margin-left:5%;margin-right:5%;">
+        <div class="width45">
+          <a href="{{ block.settings.link3 }}" style="background-image: url({{ block.settings.image3 | img_url:'1280x' }});background-size: cover;background-position: center;background-repeat:no-repeat;display:block;" class="img-box">
+            <div class="redesign-cta reduced-cta"><p class="update-cta-txt">{{ block.settings.cta3 }}</p></div>
+          </a>
+        </div>
+      
+        <div class="width45">
+          <a href="{{ block.settings.link4 }}" style="background-image: url({{ block.settings.image4 | img_url:'1280x' }});background-size: cover;background-position: center;background-repeat:no-repeat;display:block;" class="img-box">
+            <div class="redesign-cta reduced-cta"><p class="update-cta-txt">{{ block.settings.cta4 }}</p></div>
+          </a>
+        </div>
+</section>
+
+{% comment %}
+<section class="banner-row" style="margin-left:5%;margin-right:5%;">
+    <a style="background-image: url({{ block.settings.image3 | img_url:'1280x' }});background-size: contain;background-position: center;background-repeat:no-repeat;display:block;" class="link-45" href="{{ block.settings.link3 }}">
+        <div class="width100">
+        <div class="img-box">
+            <div class="redesign-cta reduced-cta"><p class="update-cta-txt">{{ block.settings.cta3 }}</p></div>
+        </div>
+        </div>
+    </a>
+    <a style="background-image: url({{ block.settings.image4 | img_url:'1280x' }});background-size: contain;background-position: center;background-repeat:no-repeat;display:block;" class="link-45" href="{{ block.settings.link4 }}">
+        <div class="width100">
+        <div class="img-box">
+            <div class="redesign-cta reduced-cta"><p class="update-cta-txt">{{ block.settings.cta4 }}</p></div>
+        </div>
+        </div></a>
+</section>
+{% endcomment %}
+<div class="clear-both"></div>
+  
+<div style="text-align:center;"><h2 class="redo-heading"><span class="bg-fix" style="font-family: Monsterrat, sans-serif;font-weight:700;">{{ section.settings.bottom-heading }}</span></h2></div>
+
+<div class="banner-row" style="margin-left:5%;margin-right:5%;">
+  <div class="img-box auto padding-topbot">
+    <div id="content" class="container padding-bottom">
+      {% unless settings.homepage_collection == blank or collections[settings.homepage_collection].empty? %}
+      {% assign collection = collections[settings.homepage_collection] %}
+      {% paginate collection.products by settings.homepage_products_per_page %}
+      <div id="featured-collections" class="products-grid active">
+        {% for product in collection.products limit: settings.homepage_products_per_page %}
+        <div>
+          {% include 'product-grid-item' %}
+        </div>
+        {% endfor %}
+      </div>
+      {% endpaginate %}
+      {% endunless %}
+    </div>
+  </div>
+</div>
+{% endfor %}
+<script type="text/javascript">
+$(document).on('ready', function() {
+
+$(".regular").slick({
+dots: true,
+infinite: true,
+slidesToShow: 1,
+slidesToScroll: 1
+});
+
+$(".products-grid").slick({
+infinite: true, 
+slidesToShow: 4,
+autoplay: true, 
+autoplaySpeed: 2000,
+slidesToScroll: 1,
+responsive:[
+    {
+    breakpoint: 768,
+    settings: {
+        slidesToShow: 4, 
+        autoplay: true, 
+    }
+    },
+    {
+    breakpoint: 480,
+    settings:{
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true, 
+        autoplaySpeed: 2000
+    }
+
+    }
+
+
+]
+});
+
+});
+</script>
+<!-- End Redesign -->
+
+
+
+{% schema %}
+{
+"name": "Last Grid",
+"class": "last-grid",
+"max_blocks": 1,
+"settings": [
+{
+"type": "image_picker",
+"id": "wide-image",
+"label": "Wide Image"    
+},
+{
+"type": "url",
+"id": "wide-link",
+"label": "Link"    
+},
+{
+"type": "text",
+"id": "heading",
+"label": "Heading"
+},
+{
+"type": "text",
+"id": "bottom-heading",
+"label": "Bottom Heading"    
+}
+],
+"blocks": [
+{
+"type": "image",
+"name": "Collection Images",
+"settings": [
+{
+"type": "image_picker",
+"id": "image1",
+"label": "Image"
+},
+{
+"type": "url",
+"id": "link1",
+"label": "Link"
+},
+{
+"type": "text",
+"id": "cta1",
+"label": "Call to Action"    
+},
+{
+"type": "image_picker",
+"id": "image2",
+"label": "Image"
+},
+{
+"type": "url",
+"id": "link2",
+"label": "Link"
+},
+{
+"type": "text",
+"id": "cta2",
+"label": "Call to Action"    
+},
+{
+"type": "image_picker",
+"id": "image3",
+"label": "Image"
+},
+{
+"type": "url",
+"id": "link3",
+"label": "Link"
+},
+{
+"type": "text",
+"id": "cta3",
+"label": "Call to Action"    
+},
+{
+"type": "image_picker",
+"id": "image4",
+"label": "Image"
+},
+{
+"type": "url",
+"id": "link4",
+"label": "Link"
+},
+{
+"type": "text",
+"id": "cta4",
+"label": "Call to Action"    
+}
+]
+}
+
+],
+"presets": [{
+"name": "Mailing Banner Last Grid",
+"category": "Home Page Layout",
+"settings": {
+
+},
+"blocks": [
+{
+"type": "image"
+}
+]
+}]
+}
+{% endschema %}

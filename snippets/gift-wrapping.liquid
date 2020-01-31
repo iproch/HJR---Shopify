@@ -1,0 +1,244 @@
+<!-- DO NOT REMOVE THE FOLLOWING COMMENT -->
+<!-- (c) Copyright 2014 Caroline Hill. All Rights Reserved. Contact Mlle Caroline Schnapp at mllegeorgesand@gmail.com -->
+<!-- DO NOT REMOVE THE ABOVE COMMENT -->
+
+<style type="text/css">
+.select-wrapper {
+    overflow: hidden;
+    position: relative;
+    min-height: 1%;
+    background: #ffffff;
+}
+
+    .select-wrapper:after {
+        content: '\f107';
+        position: absolute;
+        top: 0;
+        right: 10px;
+        bottom: 0;
+        margin: auto;
+        width: 16px;
+        height: 16px;
+        font-family: 'FontAwesome';
+        font-size: 16px;
+        line-height: 16px;
+    }
+
+    .select-wrapper select {
+        z-index: 9;
+        position: relative;
+        padding-right: 46px !important;
+        background: transparent !important;
+    }
+
+#content .cart .table-foot .totals .block .value {
+    width: 90px;
+}
+</style>
+
+{% if linklists.gift-wrapping.links.size > 0 and linklists.gift-wrapping.links.first.type == 'product_link' %}
+
+  <div id="is-a-gift" style="display: inline-block; float: none; margin-top: 20px;" class="clearfix rte">
+    <div style="display: table; margin: 0; height: 50px; vertical-align: middle;">
+    <div style="display: table-cell; height: 50px; vertical-align: middle;">
+      <input type="hidden" name="attributes[gift-wrapping]" value="" />
+      <div class="sca-qv-image" style="position: relative; float: left; margin-right: 5px;">
+      	{% comment %}<a href="{{ linklists.gift-wrapping.links.first.object.url }}" title="{{ linklists.gift-wrapping.links.first.object.title | escape }}"><img src="{{ linklists.gift-wrapping.links.first.object.featured_image | product_img_url: 'thumb' }}" alt="{{ linklists.gift-wrapping.links.first.object.title }}" style="display: inline-block; float: left;" /></a>{% endcomment %} 
+      	<img src="{{ linklists.gift-wrapping.links.first.object.featured_image | product_img_url: 'thumb' }}" alt="{{ linklists.gift-wrapping.links.first.object.title }}" style="display: inline-block; float: left;" />
+        <div class="sca-qv-button-wrap" style="display: none;"><a class="sca-qv-button" href="#sca-qv-showqv" handle="{{ linklists.gift-wrapping.links.first.object.handle | escape }}" style="font-family: tahoma; font-size: 14px; color: rgb(255, 255, 255); background: rgb(0, 0, 0);">QUICK VIEW</a></div>
+      </div>
+      <div style="float: left;">
+        <div class="select-wrapper">
+          <select id="gift-wrapping-size" name="gift-wrapping-size" style="float: left; padding: 0 10px; width: auto; height: 50px; background: #ffffff; border: 1px solid #f1f1f1; -moz-border-radius: 0; -webkit-border-radius: 0; border-radius: 0; font-family: 'Montserrat', sans-serif; font-size: 12px; color: #000000; font-weight: 400; line-height: 1;">
+            <option value="{{ linklists.gift-wrapping.links.first.object.variants[0].id }}">{{ linklists.gift-wrapping.links.first.object.variants[0].title }}</option>
+            <option value="{{ linklists.gift-wrapping.links.first.object.variants[1].id }}">{{ linklists.gift-wrapping.links.first.object.variants[1].title }}</option>
+          </select>
+        </div>
+      </div>
+      <div style="display: block; clear: both; overflow: hidden; padding-top: 10px; min-height: 1%;">
+        <input id="gift-wrapping" type="checkbox" name="attributes[gift-wrapping]" value="yes" {% if cart.attributes.gift-wrapping %} checked="checked"{% endif %} style="display: inline-block; float: left; margin-left: 0;" />
+        <label for="gift-wrapping" style="display: inline-block; float: left; margin: 0 0 0 10px; padding: 0;">Is this a Gift? Click here to add one free Gift Packaging Kit to your order!</label>
+      </div>
+    </div>
+    </div>
+    <p style="display: none;">
+      <label style="display:block" for="gift-note">Gift message (free and optional):</label>
+      <textarea name="attributes[gift-note]" id="gift-note">{{ cart.attributes.gift-note }}</textarea>
+    </p>
+  </div>
+
+{% comment %}{% assign id = linklists.gift-wrapping.links.first.object.variants.first.id %}{% endcomment %}
+{% assign id= linklists.gift-wrapping.links.first.object.variants[0].id %}
+{% assign id2 = linklists.gift-wrapping.links.first.object.variants[1].id %}
+
+{% assign gift_wraps_in_cart = 0 %}
+{% for item in cart.items %}
+  {% if item.id == id or item.id == id2 %}
+    {% assign gift_wraps_in_cart = item.quantity %}
+  {% endif %}
+{% endfor %}
+
+<script type="text/javascript">
+if(jQuery('.gift-box input').attr('id')) {
+  	var gift_wrapping_size_id = jQuery('.gift-box input').attr('id'),
+      	gift_wrapping_size_id = gift_wrapping_size_id.replace('updates_', '');
+} else {
+	var gift_wrapping_size_id = jQuery('#gift-wrapping-size').val();
+}
+
+//jQuery('.gift-box input').hide();
+
+//console.log('ready ... ' + gift_wrapping_size_id);
+
+jQuery('#gift-wrapping-size').change(function(e) {
+  	gift_wrapping_size_id = jQuery(this).val();
+  	
+	//console.log('change ... ' + gift_wrapping_size_id);
+});
+
+// If we have gift wraps in the cart.
+{% if gift_wraps_in_cart > 0 %}
+  	$(function() {
+      	var subtotal_real = jQuery('.cart .subtotal').text(),
+            subtotal_real = subtotal_real.replace('$', ''),
+            subtotal_real = subtotal_real - 3.00,
+            subtotal_real = parseFloat(subtotal_real, 10).toFixed(2);
+
+        var add_more_total_real = jQuery('.cart .add-more-total').text(),
+            add_more_total_real = add_more_total_real.replace('$', ''),
+            add_more_total_real = parseInt(add_more_total_real) + 3.00,
+            add_more_total_real = parseFloat(add_more_total_real, 10).toFixed(2);
+      	
+        jQuery('.gift-wrapping-notice').css({'display': 'none'});
+        jQuery('#gift-wrapping-size option[value="' + gift_wrapping_size_id + '"]').attr('selected', 'selected');
+      	
+        jQuery('<div class="block"><div class="float-right"><span class="key">Discount</span><span class="value">-$3.00</span></div></div>').insertAfter('.cart .totals .subtotal-block');
+      	jQuery('.cart .subtotal').text('$' + subtotal_real);
+
+        jQuery('.cart .add-more-total').text('$' + add_more_total_real);
+    });
+{% endif %}
+
+/**********/
+
+Shopify.Cart = Shopify.Cart || {};
+
+Shopify.Cart.GiftWrap = {};
+
+/*Shopify.Cart.GiftWrap.set = function() {
+  jQuery.ajax({
+    type: 'POST',
+    url: '/cart/update.js', 
+    data: { updates: { gift_wrapping_size_id: 1 }, attributes: { 'gift-wrapping': true } }, 
+    dataType: 'json',
+    success: function() { location.href = '/cart'; }
+  });
+}
+
+Shopify.Cart.GiftWrap.remove = function() {
+  jQuery.ajax({
+    type: 'POST',
+    url: '/cart/update.js', 
+    data: { updates: { gift_wrapping_size_id: 0 }, attributes: { 'gift-wrapping': '' } }, 
+    dataType: 'json',
+    success: function() { location.href = '/cart'; }
+  });
+}*/
+
+// Mikey Fix... turn object into function
+function cart_giftwrap_set() {
+	//console.log('set ... ' + gift_wrapping_size_id);
+  	
+  	//console.log((typeof gift_wrapping_size_id));
+    
+	jQuery.ajax({
+		type: 'POST',
+		url: '/cart/update.js',
+		//data: { updates: { gift_wrapping_size_id: 1 }, attributes: { 'gift-wrapping': true } },
+      	data: 'updates[' + gift_wrapping_size_id + ']=1&attributes[gift-wrapping]=true',
+		dataType: 'json',
+		success: function() {
+			jQuery('.gift-wrapping-notice').css({'display': 'none'});
+        	
+			location.href = '/cart';
+		},
+		error: function(XMLHttpRequest, textStatus) {
+			//console.log(XMLHttpRequest);
+          	//console.log(textStatus);
+		}
+    });
+}
+
+function cart_giftwrap_remove() {
+  	//console.log('remove ... ' + gift_wrapping_size_id);
+  	
+	jQuery.ajax({
+      type: 'POST',
+      url: '/cart/update.js',
+      //data: { updates: { gift_wrapping_size_id: 0 }, attributes: { 'gift-wrapping': '' } },
+      data: 'updates[' + gift_wrapping_size_id + ']=0&attributes[gift-wrapping]=',
+      dataType: 'json',
+      success: function() { location.href = '/cart'; }
+    });
+}
+
+// If we have nothing but gift-wrap items in the cart.
+{% if cart.items.size == 1 and gift_wraps_in_cart > 0 %}
+jQuery(function() {
+  //Shopify.Cart.GiftWrap.remove();
+  //cart_giftwrap_remove()
+});
+// If we have more than one gift-wrap item in the cart.
+{% elsif gift_wraps_in_cart > 1 %}
+jQuery(function() {
+  //Shopify.Cart.GiftWrap.set();
+  //cart_giftwrap_set()
+});
+// If we have a gift-wrap item in the cart but our gift-wrapping cart attribute has not been set.
+{% elsif gift_wraps_in_cart > 0 and cart.attributes.gift-wrapping == blank  %}
+jQuery(function() {
+  //Shopify.Cart.GiftWrap.set();
+  //cart_giftwrap_set()
+});
+// If we have no gift-wrap item in the cart but our gift-wrapping cart attribute has been set.
+{% elsif gift_wraps_in_cart == 0 and cart.attributes.gift-wrapping != blank  %}
+jQuery(function() {
+  //Shopify.Cart.GiftWrap.set();
+  cart_giftwrap_remove()
+});
+{% endif %}
+
+// When the gift-wrapping checkbox is checked or unchecked.
+jQuery(function() {
+  jQuery('[name="attributes\[gift-wrapping\]"]').change(function() {
+    if (jQuery(this).is(':checked')) {
+      //Shopify.Cart.GiftWrap.set();
+      cart_giftwrap_set();
+    }
+    else {
+      //Shopify.Cart.GiftWrap.remove();
+      cart_giftwrap_remove();
+    }
+  });
+});
+ 
+</script>
+
+{% else %}
+
+<p style="clear: left; margin: 30px 0" class="rte">
+  You attempted to add a sticker pack script to your shopping cart, but it won't work because you don't have 
+  a link list with handle <code>sticker-pack</code> which, in turn, contains a link
+  to your sticker pack product. Please review the steps outlined 
+  <a href="http://docs.shopify.com/manual/configuration/store-customization/page-specific/cart-page/add-a-gift-wrap-option">here</a>.
+</p>
+
+{% endif %}
+
+{% comment %}
+Discount Code - auto apply trick
+{% endcomment %}
+
+{% if gift_wraps_in_cart > 0 %}
+	<input name="discount" type="hidden" value="FIRSTFREE" />
+{% endif %}

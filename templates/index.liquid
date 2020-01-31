@@ -1,0 +1,33 @@
+{% assign current_date = 'now' | date: '%F' | remove: '-' %}
+{% assign current_time = 'now' | date: '%T' | remove: ':' %}
+{% assign current_date_time = current_date | append: current_time %}
+<!-- current_date: {{ current_date }} -->
+<!-- current_time: {{ current_time }} -->
+<!-- current_date_time: {{ current_date_time }} -->
+{{ content_for_index }}
+
+
+
+<ul id="promos" class="container" style="align-content:center;">
+  <!-- Remove comment after weekend sale May 3rd -->
+  
+  <li>
+        <h4 class="{{ settings.promo1_icon }}" title="{{ settings.promo1_title | escape }}">{{ settings.promo1_title }}</h4>
+        <p>
+            {% comment %}{{ settings.promo1_subtitle }}{% endcomment %}For U.S. Orders Over $120
+        </p>
+    </li>
+  
+    <li>
+        <h4 class="{{ settings.promo2_icon }}" title="{{ settings.promo2_title | escape }}">{{ settings.promo2_title }}</h4>
+        <p>
+            {{ settings.promo2_subtitle }}
+        </p>
+    </li>
+    <li>
+        <h4 class="{{ settings.promo3_icon }}" title="{{ settings.promo3_title | escape }}">{{ settings.promo3_title }}</h4>
+        <p>
+            {{ settings.promo3_subtitle }}
+        </p>
+      </li>
+</ul>

@@ -1,0 +1,49 @@
+<div class="h2">
+    <div class="h2-cell">
+        <h2 titl="Search Results">Search Results</h2>
+        <div class="breadcrumbs">
+            <a href="/" title="Home">Home</a> / 
+            <a href="/collections/all/" title="Shop">Shop</a> / 
+            <a class="active" href="/search/?q=" title="Search Results">Search Results</a>
+        </div>
+    </div>
+</div>
+<div id="content" class="container padding-bottom">
+    {% if search.performed %}
+        {% paginate search.results by settings.products_per_page %}
+            {% if search.results_count == 0 %}
+                <div class="content-margin-top">
+                    <p class="no-products">Your search for "<strong>{{ search.terms }}</strong>" did not yield any results.</p>
+                </div>
+            {% else %}
+                <div class="content-margin-top">
+                    <ul class="products-grid">
+                        {% for product in search.results limit: settings.products_per_page %}
+                            {% include 'product-grid-item' with product %}
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% if paginate.pages > 1 %}
+                    <div class="pagination">
+                        {% include 'pagination' %}
+                    </div>
+                {% endif %}
+            {% endif %}
+        {% endpaginate %}
+    {% else %}
+        <div class="content-margin-top">
+            <p class="no-products">You didn't search for anything.</p>
+        </div>
+    {% endif %}
+</div>
+<script src="https://unpkg.com/infinite-scroll@3/dist/infinite-scroll.pkgd.min.js"></script>
+<!-- Infinite Scroll made by Metafuzzy https://infinite-scroll.com/ -->
+<script>
+$('.products-grid').infiniteScroll({
+  // options
+  path: '.pagination.next',
+  append: '.js-size-filter ',
+  history: false,
+});
+  
+</script>

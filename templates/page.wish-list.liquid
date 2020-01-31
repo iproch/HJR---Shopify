@@ -1,0 +1,114 @@
+<div class="h2">
+    <div class="h2-cell">
+        <h2 titl="{{ page.title | escape }}">{{ page.title }}</h2>
+        <div class="breadcrumbs">
+            <a href="/" title="Home">Home</a> / 
+            <a href="/account/" title="Account">Account</a> / 
+            <a class="active" href="{{ page.url }}/" title="{{ page.title | escape }}">{{ page.title }}</a>
+        </div>
+    </div>
+</div>
+<div id="content" class="container padding-bottom">
+    {% if customer %}
+    	<ul class="items"></ul>
+    	<div class="account-wish-list">
+            <ul></ul>
+            <!--<div class="pagination">
+                <a class="pagination previous" href="#previous" title="Previous"><span>Previous</span></a>
+                <a class="pagination page-1 active" href="#page-1" title="Page 1"><span>1</span></a>
+                <a class="pagination next" href="#next" title="Next"><span>Next</span></a>
+            </div>-->
+        </div>
+    	<div class="blog-sidebar">
+            <div class="block">
+                <h4 title="My Account"><span>My Haus of JR</span></h4>
+                <ul class="categories">
+                    <li{% if template == 'customers/account' or template == 'customers/order' %} class="active"{% endif %}>
+                    	<a href="/account/" title="Orders"><span>Orders</span></a>
+                    </li>
+    				<li{% if template == 'customers/addresses' %} class="active"{% endif %}>
+    					<a href="/account/addresses/" title="Addresses"><span>Addresses</span></a>
+    				</li>
+    				<li class="active">
+                        <a href="/pages/wish-list/" title="Wish List">Wish List</a>
+                    </li>
+    				<li>
+    					<a href="/account/logout/" title="Log Out"><span>Log Out</span></a>
+    				</li>
+                </ul>
+            </div>
+        </div>
+    {% else %}
+        <p class="account-wish-list-logged-out">
+            You must be logged in to create a wish list.
+        </p>
+        <div class="account-left" style="margin-top: 20px;">
+            {% form 'customer_login' %}
+                <fieldset>
+                    <h3 class="p-title" title="Log In">Log In</h3>
+                    {{ form.errors | default_errors }}
+                    <div class="block">
+                        <label for="customer_email">E-Mail Address</label>
+                        <input name="customer[email]" type="email" placeholder="E-Mail Address" />
+                    </div>
+                    <div class="block">
+                        <label for="customer_password">Password</label>
+                        <input name="customer[password]" type="password" placeholder="Password" />
+                    </div>
+                    <div class="block">
+                        <a class="forgot-password forgot-password-show" href="#forgot-password" title="Lost Password?">Lost Password?</a>
+                    </div>
+                    <div class="block">
+                        <input type="submit" value="Log In" />
+                    </div>
+                </fieldset>
+            {% endform %}
+            {% form 'recover_customer_password' %}
+                <fieldset>
+                    <h3 class="p-title" title="Lost Password">Lost Password</h3>
+                    {{ form.errors | default_errors }}
+                    <div class="block">
+                        <label for="customer_email">E-Mail Address</label>
+                        <input name="customer[email]" type="email" placeholder="E-Mail Address" />
+                    </div>
+                    <div class="block">
+                        <a class="forgot-password forgot-password-hide" href="#log-in" title="Log In">Log In</a>
+                    </div>
+                    <div class="block">
+                        <input type="submit" value="Recover" />
+                    </div>
+                </fieldset>
+            {% endform %}
+        </div>
+        <div class="account-right" style="margin-top: 20px;">
+            {% form 'create_customer' %}
+                <fieldset>
+                    <h3 class="p-title" title="Sign Up">Don't have an account? Sign up now</h3>
+                    {{ form.errors | default_errors }}
+                    <div class="float left first-name">
+                        <label for="first_name">First Name</label>
+                        <input name="customer[first_name]" type="text" size="30" placeholder="First Name" />
+                    </div>
+                    <div class="float last-name">
+                        <label for="last_name">Last Name</label>
+                        <input name="customer[last_name]" type="text" size="30" placeholder="Last Name" />
+                    </div>
+                    <div class="float left">
+                        <label for="email">E-Mail Address</label>
+                        <input name="customer[email]" type="email" size="30" placeholder="E-Mail Address" />
+                    </div>
+                    <div class="float">
+                        <label for="password">Password</label>
+                        <input name="customer[password]" type="password" size="30" placeholder="Password" />
+                    </div>
+                    <p>
+                        By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, view and track your orders in your account and more.
+                    </p>
+                    <div class="block">
+                        <input type="submit" value="Sign Up" />
+                    </div>
+                </fieldset>
+            {% endform %}
+        </div>
+    {% endif %}
+</div>

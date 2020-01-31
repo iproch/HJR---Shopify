@@ -1,0 +1,8 @@
+<ul class="account-navigation tabs">
+	<li{% if template == 'customers/account' or template == 'customers/order' %} class="active"{% endif %}><a href="{{ shop.url }}/account/" title="Orders"><span>Orders</span></a></li>
+	<li{% if template == 'customers/addresses' %} class="active"{% endif %}><a href="{{ shop.url }}/account/addresses/" title="Addresses"><span>Addresses</span></a></li>
+  	<li>{% if customer.metafields.subscriptions.customer_string %}
+    <a href="/tools/recurring/customers/{{ customer.metafields.subscriptions.customer_string }}/subscriptions/">Manage Subscriptions</a>
+{% endif %}</li>
+	<li><a href="{{ shop.url }}/account/logout/" title="Log Out"><span>Log Out</span></a></li>
+</ul>

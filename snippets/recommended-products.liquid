@@ -1,0 +1,14 @@
+<div class="related-products">
+	<h3 title="Recommended"><span class="bg-fix">Recommended</span></h3>
+	<ul id="featured-collections" class="products-grid active">
+		{% for product in collections.recommended.products limit: 20 %}
+            {% include 'product-grid-item' with product %}
+        {% endfor %}
+	</ul>
+</div>
+{{ 'jquery.pick.js' | asset_url | script_tag }}
+<script type="text/javascript">
+$(function() {
+	$('#featured-collections > li').pick(4);
+});
+</script>

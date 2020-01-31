@@ -1,0 +1,116 @@
+<!-- Redesign -->
+<div style="text-align:center;"><h2 class="redo-heading margin-top-100">{{ section.settings.heading-text }}</h2></div>
+
+<section class="banner-row" style="margin-left:5%;margin-right:5%;">
+    {% for block in section.blocks %}
+    <div class="width30">
+            <a href="{{ block.settings.link1 }}" class="img-box img-box-mobile" style=";background-image: url({{ block.settings.image1 | img_url:'large' }});background-size: cover;background-position: center;background-repeat:no-repeat;display:block;">
+              <p class="influencer-tag">{{block.settings.social}}</p>
+              <div class="redesign-cta margin30"><p class="update-cta-txt">{{ section.settings.overall-cta }}</p></div>
+            </a>
+    </div>
+    {% endfor %}
+</section>
+
+
+
+<script type="text/javascript">
+$(document).on('ready', function() {
+
+$(".regular").slick({
+dots: true,
+infinite: true,
+slidesToShow: 1,
+slidesToScroll: 1
+});
+
+$(".products-grid").slick({
+infinite: true, 
+slidesToShow: 4,
+autoplay: true, 
+autoplaySpeed: 2000,
+slidesToScroll: 1,
+responsive:[
+    {
+    breakpoint: 768,
+    settings: {
+        slidesToShow: 4, 
+        autoplay: true, 
+    }
+    },
+    {
+    breakpoint: 480,
+    settings:{
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true, 
+        autoplaySpeed: 2000
+    }
+
+    }
+
+
+]
+});
+
+});
+</script>
+<!-- End Redesign -->
+
+
+
+{% schema %}
+{
+"name": "Shop the Look Grid",
+"class": "shop-the-look-grid",
+"max_blocks": 9,
+"settings": [
+{
+"type": "text",
+"id": "heading-text",
+"label": "Heading"    
+},
+{
+"type": "text",
+"id": "overall-cta",
+"label": "Overall CTA"
+}
+],
+"blocks": [
+{
+"type": "image",
+"name": "Shop the Look Picture",
+"settings": [
+{
+"type": "image_picker",
+"id": "image1",
+"label": "Image"
+},
+{
+"type": "url",
+"id": "link1",
+"label": "Link"
+},
+{
+"type": "text",
+"id": "social",
+"label": "Social Media Name"    
+}
+]
+}
+
+],
+"presets": [{
+"name": "Shop the Look Grid",
+"category": "Home Page Layout",
+"settings": {
+
+},
+"blocks": [
+{
+"type": "image"
+}
+]
+}]
+}
+{% endschema %}

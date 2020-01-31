@@ -1,0 +1,61 @@
+<h2 class="page-title mobile-only" title="Contact"><div class="container">Contact</div></h2>
+<div id="content" class="container">
+    {% form 'contact' %}
+    	{% if form.posted_successfully? %}
+		    <div class="successForm feedback">
+				{{ settings.contact_success_msg }}
+		    </div>
+		{% endif %}
+
+		{% if form.errors %}
+			<div class="errorForm feedback">
+			    <!-- {{ form.errors.size }} or {{ form.errors | size }} -->
+			    <p>Your contact form has {{ form.errors | size | pluralize: ‘an error’, ‘a few errors’ }}. To submit your form, make the following changes and try again:</p>
+			    <ul>
+				    {% for field in form.errors %}
+						<li>The {{ field | capitalize | replace: 'Body', 'Message' }} field {{ form.errors.messages[field] }}.</li>
+				    {% endfor %}
+			    </ul>
+			</div>
+		{% endif %}
+		<div id="contactFormWrapper">
+			<fieldset>
+				<div class="float-left">
+					<label for="contact[name]">Your Name</label>
+	            	<input type="text" required id="contactFormName" name="contact[name]" placeholder="Your Name" />
+	            </div>
+	            <div class="float-left">
+					<label for="contact[email]">Your E-Mail Address</label>
+					<input type="email" required id="contactFormEmail" name="contact[email]" placeholder="Your E-Mail Address" />
+				</div>
+				{% comment %}
+				<div class="block">
+					<label for="contact-subject">Subject</label>
+					<input id="contact-subject" name="contact-subject" class="contact-subject" type="text" placeholder="Subject" />
+				</div>
+				{% endcomment %}
+				<div class="block padding-top-60">
+					<label for="contact-message">Your Message</label>
+					<textarea required rows="10" id="contactFormMessage" name="contact[body]" placeholder="Your Message"></textarea>
+				</div>
+				<div class="block">
+					<input type="submit" id="contactFormSubmit" value="Send" />
+				</fieldset>
+			</fieldset>
+		</div>
+    {% endform %}
+    <ul class="contact-50-50">
+    	<li class="p">
+    		{{ page.content }}
+		</li>
+		<li class="social">
+			<h3 title="Social">Social</h3>
+			<a class="fa-twitter" href="{{ settings.twitter_url }}" title="Follow {{ shop.name | escape }} on Twitter" target="_blank"><span>Twitter</span></a>
+            <a class="fa-facebook" href="{{ settings.facebook_url }}" title="Follow {{ shop.name | escape }} on Facebook" target="_blank"><span>Facebook</span></a>
+            <a class="fa-instagram" href="{{ settings.instagram_url }}" title="Follow {{ shop.name | escape }} on Instagram" target="_blank"><span>Instagram</span></a>
+            <a class="fa-snapchat-ghost" href="{{ settings.snapchat_url }}" title="Follow {{ shop.name | escape }} on Snapchat" target="_blank"><span>Snapchat</span></a>
+            <a class="fa-youtube" href="{{ settings.youtube_url }}" title="Follow {{ shop.name | escape }} on YouTube" target="_blank"><span>YouTube</span></a>
+            <a class="fa-vimeo" href="{{ settings.vimeo_url }}" title="Follow {{ shop.name | escape }} on Vimeo" target="_blank"><span>Vimeo</span></a>
+		</li>
+	</ul>
+</div>

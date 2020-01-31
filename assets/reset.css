@@ -1,0 +1,212 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700|Playfair+Display:400,700);
+
+html, body {
+    margin: 0 auto;
+    padding: 0;
+    min-height: 100%;
+    height: 100%;
+    background: #ffffff;
+    font-family: 'Montserrat', sans-serif;/*Arial, Helvetica, sans-serif*/
+    font-size: 100%;
+    color: #000000;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+}
+
+div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, /*strong,*/ sub, sup, tt, var,
+/*b, u, i,*/ center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend, input, textarea, select, button,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font: inherit;
+    font-size: 100%;
+    text-decoration: none;
+    vertical-align: baseline;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+body {
+    font-size: 12px;
+    line-height: 1.50em;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+::selection {
+    background: rgba(0, 0, 0, 0.95);
+    color: #ffffff;
+}
+
+::-moz-selection {
+    background: rgba(0, 0, 0, 0.95);
+    color: #ffffff;
+}
+
+/* anchor */
+a {
+    color: #000000;
+}
+
+    a:hover {
+        color: #000000;
+    }
+    
+    a span, form input[type='submit'], form button {
+        cursor: pointer;
+    }
+    
+/* form */
+form {
+    overflow: hidden;
+    min-height: 1%;
+}
+
+form fieldset {
+    float: left;
+    width: 100%;
+}
+
+form label, form input[type='text'], form input[type='email'], form input[type='password'], form input[type='date'], select, form textarea, form input[type='submit'] {
+    display: block;
+    padding: 0 10px;
+    width: -moz-calc(100% - 20px);
+    width: -webkit-calc(100% - 20px);
+    width: calc(100% - 20px);
+    height: 40px;
+    background: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    color: #000000;
+    font-weight: 400;
+    line-height: 1;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+    form label {
+        margin: 0;
+        padding: 0;
+        height: auto;
+        background: transparent;
+        border: 0;
+    }
+    
+        form select {}
+    
+        form textarea {
+            resize: none;
+        }
+        
+        form input[type='text']:hover, form input[type='email']:hover, form input[type='password']:hover, form input[type='date']:hover, form select:hover, form textarea:hover {
+            /*border-color: #e8e8e8;*/
+        }
+        
+        form input[type='text']:focus, form input[type='email']:focus, form input[type='password']:focus, form input[type='date']:focus, form select:hover, form select:focus, form textarea:focus {
+            /*border-color: #67cbc9;*/
+        }
+        
+        form input[type='text']:focus:invalid, form input[type='email']:focus:invalid, form input[type='password']:focus:invalid, form input[type='date']:focus:invalid, form select:focus:invalid, form textarea:focus:invalid {
+            /*border-color: #e8e8e8;*/
+        }
+        
+        form input[type='text']:required:valid, form input[type='email']:required:valid, form input[type='password']:required:valid, form input[type='date']:required:valid, form select:required:valid, form textarea:required:valid {
+            /*border-color: #e8e8e8;*/
+        }
+        
+    form input[type='file'] {
+        margin-top: 5px;
+    }
+        
+    form input[type='submit'] {
+        padding: 10 20px;
+        width: auto;
+        height: auto;
+        background: #000000;
+        border: 0;
+        font-size: 10px;
+        color: #ffffff;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+        line-height: auto;
+    }
+    
+        form input[type='submit']:hover {}
+
+form input::-moz-placeholder {
+    color: #cccccc;
+}
+
+form input::-ms-input-placeholder {
+    color: #cccccc;
+}
+
+form input::-webkit-input-placeholder {
+    padding-top: 2px;
+    color: #cccccc;
+}
+
+form textarea::-moz-placeholder {
+    color: #cccccc;
+}
+
+form textarea::-ms-input-placeholder {
+    color: #cccccc;
+}
+
+form textarea::-webkit-input-placeholder {
+    color: #cccccc;
+}
+    
+/* fancybox */
+.fancybox-overlay {
+    z-index: 999999 !important;
+}
+
+.fancybox-wrap {
+     z-index: 9999999 !important;
+}
+
+/* shopify admin bar */
+html {
+    padding-top: 0 !important;
+}
+
+#admin_bar_iframe {
+    display: none !important;
+}

@@ -1,0 +1,140 @@
+
+  <script type="text/javascript" src="{{ 'slick.min.js' | asset_url }}"></script>
+  <script src="https://kit.fontawesome.com/a6a33397e5.js"></script>
+  
+<!-- Redesign -->
+  <section class="regular slider">
+
+    {% for block in section.blocks %}
+        <a class="slick-slide" background-image href="{{ block.settings.link }}" style="background-image:url({{ block.settings.image | img_url:'1080x720' }});background-color:{{ block.settings.background-color }};background-size:contain;"></a>
+    {% endfor %}
+
+  </section>
+  
+  {% comment %}
+  <div class="banner-row" style="margin-left:5%;margin-right:5%;">
+    <div class="img-box auto padding-topbot">
+      <div id="content" class="container padding-bottom">
+        {% unless settings.homepage_collection == blank or collections[settings.homepage_collection].empty? %}
+        {% assign collection = collections[settings.homepage_collection] %}
+        {% paginate collection.products by settings.homepage_products_per_page %}
+        <ul id="featured-collections" class="products-grid active">
+          {% for product in collection.products limit: settings.homepage_products_per_page %}
+          {% include 'product-grid-item' %}
+          {% endfor %}
+        </ul>
+        {% endpaginate %}
+        {% endunless %}
+      </div>
+    </div>
+  </div>
+  {% endcomment %}
+  
+  <div class="clear-both"></div>
+  
+  <script type="text/javascript">
+    $(document).on('ready', function() {
+  
+      $(".regular").slick({
+        dots: true,
+        infinite: true,
+        slidesToShow: 1,
+        slidesToScroll: 1
+      });
+  
+      $(".products-grid").slick({
+        infinite: true, 
+        slidesToShow: 4,
+        autoplay: true, 
+        autoplaySpeed: 2000,
+        slidesToScroll: 1,
+        responsive:[
+          {
+            breakpoint: 768,
+            settings: {
+              slidesToShow: 4, 
+              autoplay: true, 
+            }
+          },
+          {
+            breakpoint: 480,
+            settings:{
+              slidesToShow: 1,
+              slidesToScroll: 1,
+              autoplay: true, 
+              autoplaySpeed: 2000
+            }
+  
+          }
+  
+  
+        ]
+      });
+  
+    });
+  </script>
+  <!-- End Redesign -->
+  
+  
+  
+  {% schema %}
+  {
+  "name": "Slideshow",
+  "class": "billboards",
+  "max_blocks": 8,
+  "settings": [
+  ],
+  "blocks": [
+  {
+  "type": "image",
+  "name": "Image slide",
+  "settings": [
+  {
+  "type": "image_picker",
+  "id": "image",
+  "label": "Image"
+  },
+  {
+    "type": "color",
+    "id": "background-color",
+    "label": "Background Color",
+    "default": "#fff"
+  },	
+  {
+  "type": "text",
+  "id": "banner_title",
+  "label": "Alt Tag",
+  "default": "Haus of JR"
+  },
+  {
+  "type": "url",
+  "id": "link",
+  "label": "Slide Link"
+  },
+  {
+  "type": "text",
+  "id": "cta",
+  "label": "CTA"
+  }
+  ]
+  }
+  
+  ],
+  "presets": [{
+  "name": "Slideshow",
+  "category": "Image",
+  "settings": {
+  
+  },
+  "blocks": [
+  {
+  "type": "image"
+  },
+  {
+  "type": "image"
+  }
+  ]
+  }]
+  }
+  {% endschema %}
+  
